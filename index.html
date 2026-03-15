@@ -9,175 +9,144 @@
     <meta name="theme-color" content="#0a0a14">
     <title>Aylina Cookies 🎂</title>
     
-    <link rel="manifest" id="manifestLink">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg: #0a0a14; --bg2: #10101e; --bg3: #14142a;
-            --card: rgba(255,255,255,.04); --card-h: rgba(255,255,255,.07);
+            --bg: #0a0a14; --bg2: #10101e; 
+            --card: rgba(255,255,255,.04); 
             --border-p: rgba(255,107,157,.18); --border-c: rgba(0,229,255,.18); --border-v: rgba(167,139,250,.18);
-            --pink: #ff6b9d; --pink-s: #ff9a9e; --pink-g: rgba(255,107,157,.25);
-            --cyan: #00e5ff; --cyan-g: rgba(0,229,255,.2);
-            --purple: #a78bfa; --purple-g: rgba(167,139,250,.2);
-            --green: #6bcb77; --yellow: #ffd93d; --orange: #ffb347;
+            --pink: #ff6b9d; --pink-s: #ff9a9e; 
+            --cyan: #00e5ff; --purple: #a78bfa; 
+            --green: #6bcb77; --orange: #ffb347;
             --text: #e8e8f0; --muted: #6b6b88;
             --r: 16px; --rs: 10px;
             --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        html { scroll-behavior: smooth; height: 100%; }
-        body { background: var(--bg); color: var(--text); font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif; min-height: 100%; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-        body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(255,107,157,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,157,.025) 1px, transparent 1px); background-size: 44px 44px; pointer-events: none; z-index: 0; }
-        input, button, select, textarea { font-family: 'DM Sans', sans-serif; -webkit-appearance: none; }
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,107,157,.2); border-radius: 4px; }
+        
+        /* FIX IOS: Bloque le fond, empêche le rebond */
+        html, body { 
+            height: 100%; height: -webkit-fill-available; 
+            overflow: hidden; background: var(--bg); color: var(--text); 
+            font-family: 'DM Sans', -apple-system, sans-serif; 
+            position: fixed; width: 100%; top: 0; left: 0;
+        }
+        
+        body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(255,107,157,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,157,.025) 1px, transparent 1px); background-size: 44px 44px; pointer-events: none; z-index: -1; }
+        
+        input, button, textarea { font-family: inherit; -webkit-appearance: none; outline: none; }
+        ::-webkit-scrollbar { display: none; }
 
-        .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: rgba(10,10,20,.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-top: 1px solid rgba(255,107,157,.12); display: flex; justify-content: space-around; align-items: center; padding: 10px 0 calc(10px + var(--safe-bottom)); }
-        .tab-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px 18px; border-radius: 12px; cursor: pointer; border: none; background: none; color: var(--muted); transition: color .2s; flex: 1; }
+        /* --- NAVIGATION --- */
+        .tab-bar { position: absolute; bottom: 0; left: 0; right: 0; z-index: 200; background: rgba(10,10,20,.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid rgba(255,107,157,.12); display: flex; justify-content: space-around; align-items: center; padding: 10px 0 calc(10px + var(--safe-bottom)); height: calc(65px + var(--safe-bottom)); transition: transform 0.3s ease; }
+        body.keyboard-open .tab-bar { transform: translateY(100%); }
+
+        .tab-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px; background: none; color: var(--muted); border: none; flex: 1; cursor: pointer; }
         .tab-item .tab-icon { font-size: 22px; transition: transform .2s; }
-        .tab-item .tab-label { font-size: .64rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; }
+        .tab-item .tab-label { font-size: .64rem; font-weight: 600; text-transform: uppercase; }
         .tab-item.active { color: var(--pink); }
         .tab-item.active .tab-icon { transform: scale(1.15); }
         .tab-item.tab-ia.active { color: var(--cyan); }
 
-        .screen { display: none; min-height: calc(100vh - 68px); padding-bottom: calc(80px + var(--safe-bottom)); }
+        /* --- SCREENS --- */
+        .screen { display: none; height: calc(100% - 65px - var(--safe-bottom)); overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 30px; }
         .screen.active { display: block; }
         
-        .hero { text-align: center; padding: 36px 20px 24px; position: relative; z-index: 1; }
-        .hero-emoji { font-size: 58px; display: inline-block; filter: drop-shadow(0 0 22px var(--pink-g)); animation: float 3.5s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .hero h1 { font-family: 'Fredoka One', cursive; font-size: clamp(1.8rem, 6vw, 3rem); background: linear-gradient(135deg, var(--pink) 30%, var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-top: 10px; }
-        .hero p { color: var(--muted); font-size: .9rem; margin-top: 6px; }
-        
-        .card { background: var(--card); border: 1px solid var(--border-p); border-radius: var(--r); padding: 22px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-        .ig { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-        .ig label { font-size: .7rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
-        .ig input { background: rgba(255,255,255,.04); border: 1px solid var(--border-p); color: var(--text); border-radius: var(--rs); padding: 13px 15px; font-size: 16px; width: 100%; transition: border-color .2s, box-shadow .2s; }
-        .ig input:focus { outline: none; border-color: var(--pink); box-shadow: 0 0 0 3px rgba(255,107,157,.1); }
-        
-        .btn { padding: 13px 24px; border-radius: 30px; border: none; font-size: .94rem; font-weight: 700; cursor: pointer; transition: all .2s; display: inline-flex; align-items: center; justify-content: center; }
-        .btn:active { transform: scale(.96); }
-        .btn-p { background: linear-gradient(135deg, var(--pink), var(--pink-s)); color: #fff; box-shadow: 0 4px 20px var(--pink-g); width: 100%; }
+        .hero { text-align: center; padding: 30px 20px 20px; }
+        .hero h1 { font-family: 'Fredoka One', cursive; font-size: 2.2rem; background: linear-gradient(135deg, var(--pink), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-top: 10px; }
+        .hero p { color: var(--muted); font-size: .9rem; margin-top: 5px; }
+        .card { background: var(--card); border: 1px solid var(--border-p); border-radius: var(--r); padding: 20px; margin-bottom: 20px; }
 
-        .gluc-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: .72rem; font-weight: 600; }
-        .gluc-low { background: rgba(107,203,119,.1); color: var(--green); border: 1px solid rgba(107,203,119,.3); }
-        .gluc-hi { background: rgba(255,107,157,.1); color: var(--pink); border: 1px solid rgba(255,107,157,.3); }
-
-        #screen-calc { padding-top: 0; }
-        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        @media(max-width:420px) { .calc-grid { grid-template-columns: 1fr; } }
-        .result-box { margin-top: 20px; padding: 20px 22px; border-radius: var(--rs); background: rgba(255,107,157,.06); border: 1px solid rgba(255,107,157,.2); display: none; }
-        .result-box.show { display: block; animation: fsu .3s ease; }
-        .result-box h3 { font-family: 'Fredoka One', cursive; color: var(--pink); font-size: 1.15rem; margin-bottom: 14px; }
-        .stat { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
-        .stat-label { font-size: .84rem; color: var(--muted); }
-        .stat-val { font-family: 'Fredoka One', cursive; font-size: 1.5rem; color: var(--cyan); }
-
-        #screen-ia { display: none; flex-direction: column; height: calc(100vh - 68px); padding: 0; }
+        /* --- CHAT IA --- */
+        #screen-ia { padding: 0; overflow: hidden; display: none; flex-direction: column; height: 100%; }
         #screen-ia.active { display: flex; }
-        
-        .agent-header { padding: 13px 18px; background: var(--bg2); border-bottom: 1px solid rgba(0,229,255,.1); display: flex; align-items: center; gap: 12px; flex-shrink: 0; position: relative; z-index: 1; }
-        .agent-av { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, rgba(0,229,255,.15), rgba(167,139,250,.15)); border: 1.5px solid rgba(0,229,255,.3); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        body:not(.keyboard-open) #screen-ia { height: calc(100% - 65px - var(--safe-bottom)); }
+
+        .agent-header { padding: 12px 15px; background: var(--bg2); border-bottom: 1px solid rgba(0,229,255,.1); display: flex; align-items: center; gap: 12px; flex-shrink: 0; z-index: 10; }
+        .agent-av { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, rgba(0,229,255,.15), rgba(167,139,250,.15)); border: 1px solid rgba(0,229,255,.3); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
         .agent-info h3 { font-family: 'Fredoka One', cursive; color: var(--cyan); font-size: 1rem; }
-        .agent-info p { font-size: .72rem; color: var(--muted); }
-        .agent-status { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: .72rem; color: var(--green); }
-        
-        .profil-bar, .mood-bar, .sugg-bar { padding: 10px 16px; display: flex; align-items: center; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; flex-shrink: 0; border-bottom: 1px solid rgba(255,255,255,.05); }
-        .profil-bar::-webkit-scrollbar, .mood-bar::-webkit-scrollbar, .sugg-bar::-webkit-scrollbar { display: none; }
-        
-        .profil-chip { display: flex; flex-direction: column; align-items: center; min-width: 64px; cursor: pointer; padding: 5px 10px; background: rgba(167,139,250,.06); border: 1px solid var(--border-v); border-radius: 10px; flex-shrink: 0; }
-        .pc-label { font-size: .58rem; font-weight: 600; text-transform: uppercase; color: var(--muted); }
-        .pc-val { font-family: 'Fredoka One', cursive; font-size: .9rem; color: var(--purple); white-space: nowrap; }
-        
-        .profil-edit-row { display: none; padding: 8px 16px 10px; background: rgba(167,139,250,.04); border-bottom: 1px solid var(--border-v); gap: 8px; align-items: center; flex-shrink: 0; }
+        .agent-info p { font-size: .75rem; color: var(--muted); }
+
+        .profil-bar { display: flex; gap: 8px; padding: 10px 15px; overflow-x: auto; flex-shrink: 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+        .profil-chip { display: flex; flex-direction: column; align-items: center; min-width: 60px; padding: 5px 10px; background: rgba(167,139,250,.06); border: 1px solid var(--border-v); border-radius: 10px; flex-shrink: 0; cursor: pointer; }
+        .pc-label { font-size: .55rem; font-weight: 600; text-transform: uppercase; color: var(--muted); }
+        .pc-val { font-family: 'Fredoka One', cursive; font-size: .85rem; color: var(--purple); }
+
+        .profil-edit-row { display: none; padding: 10px 15px; background: rgba(167,139,250,.04); border-bottom: 1px solid var(--border-v); gap: 10px; flex-shrink: 0; }
         .profil-edit-row.show { display: flex; }
-        .profil-edit-row input { flex: 1; background: rgba(255,255,255,.05); border: 1px solid var(--border-v); color: var(--text); border-radius: var(--rs); padding: 10px 13px; font-size: 16px; }
-        .btn-sv { padding: 9px 18px; border-radius: 30px; border: none; background: linear-gradient(135deg, var(--purple), #818cf8); color: #fff; font-size: .85rem; font-weight: 700; cursor: pointer; }
+        .profil-edit-row input { flex: 1; background: rgba(255,255,255,.05); border: 1px solid var(--border-v); color: var(--text); border-radius: 8px; padding: 10px; font-size: 16px; }
+        .btn-sv { padding: 0 15px; border-radius: 8px; border: none; background: var(--purple); color: #fff; font-weight: bold; cursor: pointer; }
+
+        .chat-box { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 15px; -webkit-overflow-scrolling: touch; }
         
-        .mood-btn { padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.08); background: none; color: var(--muted); font-size: .75rem; white-space: nowrap; flex-shrink: 0; }
-        .mood-btn.active { background: rgba(255,107,157,.1); color: var(--pink); border-color: rgba(255,107,157,.3); }
-        
-        .chat-box { flex: 1; overflow-y: auto; padding: 16px 14px; display: flex; flex-direction: column; gap: 13px; -webkit-overflow-scrolling: touch; }
-        .msg { display: flex; gap: 8px; animation: fsu .3s ease; max-width: 88%; }
+        .msg { display: flex; gap: 8px; max-width: 90%; }
         .msg.user { align-self: flex-end; flex-direction: row-reverse; }
         .msg.agent { align-self: flex-start; }
-        @keyframes fsu { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .msg-av { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .9rem; flex-shrink: 0; align-self: flex-end; }
+        .msg-av { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .8rem; align-self: flex-end; flex-shrink: 0; }
         .msg.agent .msg-av { background: rgba(0,229,255,.1); border: 1px solid var(--border-c); }
         .msg.user .msg-av { background: rgba(255,107,157,.1); border: 1px solid var(--border-p); }
         
-        .bubble { padding: 12px 15px; border-radius: 14px; font-size: .875rem; line-height: 1.65; word-break: break-word; }
-        .msg.agent .bubble { background: rgba(0,229,255,.06); border: 1px solid var(--border-c); border-bottom-left-radius: 4px; }
-        .msg.user .bubble { background: rgba(255,107,157,.1); border: 1px solid var(--border-p); border-bottom-right-radius: 4px; }
+        .bubble { padding: 12px 14px; border-radius: 14px; font-size: .9rem; line-height: 1.5; }
+        .msg.agent .bubble { background: rgba(0,229,255,.08); border: 1px solid var(--border-c); border-bottom-left-radius: 4px; }
+        .msg.user .bubble { background: rgba(255,107,157,.15); border: 1px solid var(--border-p); border-bottom-right-radius: 4px; }
         .bubble strong { color: var(--cyan); }
         .msg.user .bubble strong { color: var(--pink); }
-        
-        .bubble-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
-        .act-btn { padding: 4px 11px; border-radius: 16px; border: none; cursor: pointer; font-size: .72rem; font-weight: 600; }
-        .act-listen { background: rgba(255,107,157,.1); color: var(--pink); border: 1px solid rgba(255,107,157,.25); }
-        .act-save { background: rgba(231,76,60,.1); color: #e74c3c; border: 1px solid rgba(231,76,60,.25); }
-        
-        .sugg-chip { background: rgba(0,229,255,.07); border: 1px solid var(--border-c); color: var(--cyan); padding: 6px 13px; border-radius: 20px; font-size: .75rem; white-space: nowrap; flex-shrink: 0; }
-        
-        .chat-input-bar { padding: 10px 13px; background: var(--bg2); display: flex; gap: 9px; align-items: flex-end; flex-shrink: 0; padding-bottom: calc(10px + var(--safe-bottom)); }
-        .chat-ta { flex: 1; background: rgba(255,255,255,.04); border: 1px solid var(--border-c); color: var(--text); border-radius: 13px; padding: 11px 14px; font-size: 16px; resize: none; min-height: 44px; max-height: 110px; }
-        .chat-ta:focus { outline: none; border-color: var(--cyan); }
-        
-        .mic-btn, .send-btn { width: 44px; height: 44px; border-radius: 50%; border: none; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
-        .mic-btn { background: var(--orange); color: #fff; }
-        .mic-btn.listening { background: #e74c3c; animation: pulse 1.2s infinite; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        .send-btn { background: linear-gradient(135deg, #007c8a, var(--cyan)); color: #fff; }
 
-        .filter-bar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; margin-bottom: 14px; background: var(--card); border: 1px solid var(--border-p); border-radius: var(--rs); }
-        input[type=range] { flex: 1; accent-color: var(--pink); }
-        .cat-bar { display: flex; gap: 7px; margin-bottom: 18px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .cat-bar::-webkit-scrollbar { display: none; }
-        .cat-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,.08); background: none; color: var(--muted); font-size: .78rem; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
-        .cat-btn.active { background: rgba(255,107,157,.12); color: var(--pink); border-color: rgba(255,107,157,.4); }
+        .bubble-actions { display: flex; gap: 8px; margin-top: 6px; }
+        .act-btn { padding: 5px 12px; border-radius: 12px; border: none; font-size: .75rem; font-weight: bold; cursor: pointer; }
+        .act-listen { background: rgba(255,107,157,.15); color: var(--pink); border: 1px solid var(--border-p); }
+        .act-save { background: rgba(231,76,60,.15); color: #e74c3c; border: 1px solid rgba(231,76,60,.3); }
+
+        /* --- ZONE DE SAISIE FIXE --- */
+        .chat-input-wrapper { background: var(--bg2); border-top: 1px solid rgba(255,255,255,.05); padding: 10px 15px calc(10px + env(safe-area-inset-bottom)); flex-shrink: 0; width: 100%; }
+        body.keyboard-open .chat-input-wrapper { padding-bottom: 10px; }
         
-        .rec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 13px; }
-        .rec-card, .fav-card { background: var(--card); border: 1px solid var(--border-p); border-radius: var(--r); overflow: hidden; position: relative; }
-        .rec-card::before, .fav-top { content: ''; display: block; height: 3px; background: linear-gradient(90deg, var(--pink), var(--cyan)); }
+        .sugg-bar { display: flex; gap: 8px; margin-bottom: 10px; overflow-x: auto; }
+        .sugg-chip { background: rgba(0,229,255,.08); border: 1px solid var(--border-c); color: var(--cyan); padding: 6px 12px; border-radius: 15px; font-size: .8rem; white-space: nowrap; cursor: pointer; }
         
-        .rec-body, .fav-body { padding: 13px; }
-        .cat-tag { font-size: .62rem; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: 7px; background: rgba(255,107,157,.1); color: var(--pink); }
-        .rec-titre, .fav-titre { font-family: 'Fredoka One', cursive; font-size: .95rem; color: var(--text); margin-bottom: 6px; }
+        .chat-input-bar { display: flex; gap: 10px; align-items: flex-end; }
+        .mic-btn { width: 44px; height: 44px; border-radius: 50%; border: none; background: var(--orange); color: white; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; }
+        .mic-btn.listening { background: #e74c3c; animation: pulse 1s infinite; }
+        @keyframes pulse { 50% { transform: scale(1.1); } }
         
-        .rec-detail, .fav-preview { display: none; font-size: .8rem; color: var(--muted); line-height: 1.55; }
-        .rec-detail.open, .fav-preview.open { display: block; padding: 0 13px 13px; }
-        .fav-preview.open { padding: 0 0 10px 0; }
+        .chat-ta { flex: 1; background: rgba(255,255,255,.05); border: 1px solid var(--border-c); color: white; border-radius: 18px; padding: 12px 15px; font-size: 16px; min-height: 44px; max-height: 100px; resize: none; line-height: 1.4; }
+        .chat-ta:focus { border-color: var(--cyan); background: rgba(255,255,255,.08); }
         
-        .fav-btn { width: 32px; height: 32px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; background: rgba(255,107,157,.1); color: var(--pink); }
-        .fav-delete { background: rgba(231,76,60,.1); color: #e74c3c; margin-top: 10px; padding: 5px 15px; border-radius: 8px; font-weight: bold; width: 100%;}
+        .send-btn { width: 44px; height: 44px; border-radius: 50%; border: none; background: linear-gradient(135deg, #007c8a, var(--cyan)); color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; }
+        .send-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        /* --- AUTRES --- */
+        .ig { display: flex; flex-direction: column; gap: 5px; margin-bottom: 15px; }
+        .ig label { font-size: .75rem; color: var(--muted); text-transform: uppercase; font-weight: bold; }
+        .ig input { background: rgba(255,255,255,.05); border: 1px solid var(--border-p); color: white; padding: 12px; border-radius: 8px; font-size: 16px; }
+        .btn-p { width: 100%; padding: 15px; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--pink), var(--pink-s)); color: white; font-weight: bold; font-size: 1rem; cursor: pointer; }
+        .result-box { margin-top: 20px; padding: 15px; border-radius: 10px; background: rgba(255,107,157,.1); border: 1px solid var(--border-p); display: none; }
+        .result-box.show { display: block; }
+        .stat { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.05); padding-bottom: 5px;}
+        .stat-val { font-family: 'Fredoka One'; color: var(--cyan); font-size: 1.2rem; }
+
+        .rec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 15px; }
+        .rec-card { background: var(--card); border: 1px solid var(--border-p); border-radius: 12px; padding: 15px; }
+        .cat-tag { font-size: .65rem; background: rgba(255,107,157,.15); color: var(--pink); padding: 3px 8px; border-radius: 8px; text-transform: uppercase; font-weight: bold; }
+        .rec-titre { font-family: 'Fredoka One'; margin: 8px 0; font-size: 1rem; }
+        .gluc-badge { background: rgba(107,203,119,.15); color: var(--green); padding: 3px 8px; border-radius: 8px; font-size: .75rem; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="screen active" id="screen-calc">
-        <div class="hero">
-            <span class="hero-emoji">🧮</span>
-            <h1>Calculateur</h1>
-            <p>Glucides par part & dose d'insuline</p>
-        </div>
-        <div style="padding:0 16px;max-width:600px;margin:0 auto">
+        <div class="hero"><span class="hero-emoji">🧮</span><h1>Calculateur</h1><p>Glucides & Insuline</p></div>
+        <div style="padding:0 20px;max-width:500px;margin:0 auto">
             <div class="card">
-                <div class="calc-grid">
-                    <div class="ig"><label>🍰 Glucides totaux (g)</label><input type="number" id="totalG" placeholder="ex : 120" inputmode="decimal"></div>
-                    <div class="ig"><label>✂️ Nombre de parts</label><input type="number" id="nbParts" placeholder="ex : 8" inputmode="decimal"></div>
-                    <div class="ig"><label>💉 Ratio insuline (g/U)</label><input type="number" id="ratioI" placeholder="ex : 10 (optionnel)" inputmode="decimal"></div>
-                    <div class="ig"><label>🩸 Glycémie actuelle</label><input type="number" id="glycemie" placeholder="mmol/L" inputmode="decimal"></div>
-                </div>
-                <button class="btn btn-p" style="margin-top:8px" onclick="doCalc()">Calculer ma part 🧮</button>
+                <div class="ig"><label>🍰 Glucides totaux du gâteau (g)</label><input type="number" id="totalG" placeholder="ex : 120" inputmode="decimal"></div>
+                <div class="ig"><label>✂️ Nombre de parts</label><input type="number" id="nbParts" placeholder="ex : 8" inputmode="decimal"></div>
+                <div class="ig"><label>💉 Ratio insuline (g/U)</label><input type="number" id="ratioI" placeholder="ex : 10 (optionnel)" inputmode="decimal"></div>
+                <button class="btn-p" onclick="doCalc()">Calculer ma part 🧮</button>
                 <div class="result-box" id="calcResult">
-                    <h3>📊 Résultats</h3>
-                    <div class="stat"><span class="stat-label">Glucides par part</span><span class="stat-val" id="resG">—</span></div>
-                    <div class="stat"><span class="stat-label">Dose estimée</span><span class="stat-val" id="resD">—</span></div>
+                    <div class="stat"><span style="color:var(--muted)">Glucides/part</span><span class="stat-val" id="resG">—</span></div>
+                    <div class="stat" style="border:none;margin:0;padding:0"><span style="color:var(--muted)">Dose estimée</span><span class="stat-val" id="resD">—</span></div>
                 </div>
             </div>
         </div>
@@ -186,146 +155,117 @@
     <div class="screen" id="screen-ia">
         <div class="agent-header">
             <div class="agent-av">🧑‍🍳</div>
-            <div class="agent-info">
-                <h3>ChefGluco · Mistral</h3>
-                <p>Spécialiste DT1</p>
-            </div>
-            <div class="agent-status">
-                En ligne <button onclick="resetChat()" style="margin-left:10px;background:none;border:1px solid rgba(255,255,255,.1);color:var(--muted);padding:4px 10px;border-radius:20px;font-size:.68rem;">🗑 Reset</button>
-            </div>
+            <div class="agent-info"><h3>Chef Mistral</h3><p>Spécialiste DT1</p></div>
+            <button onclick="resetChat()" style="margin-left:auto;background:none;border:1px solid rgba(255,255,255,.1);color:var(--muted);padding:5px 12px;border-radius:15px;font-size:.75rem;cursor:pointer;">🗑 Reset</button>
         </div>
 
         <div class="profil-bar" id="profilBar">
-            <div class="profil-chip" onclick="editField('apikey')" style="border-color: var(--pink)"><span class="pc-label">Clé API</span><span class="pc-val empty" id="pv-apikey">🗝️ Ajouter</span></div>
-            <div class="profil-chip" onclick="editField('prenom')"><span class="pc-label">Prénom</span><span class="pc-val empty" id="pv-prenom">—</span></div>
-            <div class="profil-chip" onclick="editField('age')"><span class="pc-label">Âge</span><span class="pc-val empty" id="pv-age">—</span></div>
-            <div class="profil-chip" onclick="editField('poids')"><span class="pc-label">Poids kg</span><span class="pc-val empty" id="pv-poids">—</span></div>
-            <div class="profil-chip" onclick="editField('ratio')"><span class="pc-label">Ratio g/U</span><span class="pc-val empty" id="pv-ratio">—</span></div>
-            <div class="profil-chip" onclick="editField('allergies')"><span class="pc-label">Allergies</span><span class="pc-val empty" id="pv-allergies">—</span></div>
+            <div class="profil-chip" onclick="editField('apikey')" style="border-color: var(--pink)"><span class="pc-label">Clé API</span><span class="pc-val" id="pv-apikey" style="color:var(--pink)">🗝️ Ajouter</span></div>
+            <div class="profil-chip" onclick="editField('prenom')"><span class="pc-label">Prénom</span><span class="pc-val" id="pv-prenom">—</span></div>
+            <div class="profil-chip" onclick="editField('age')"><span class="pc-label">Âge</span><span class="pc-val" id="pv-age">—</span></div>
+            <div class="profil-chip" onclick="editField('allergies')"><span class="pc-label">Allergies</span><span class="pc-val" id="pv-allergies">—</span></div>
         </div>
         
         <div class="profil-edit-row" id="profilEditRow">
-            <input type="text" id="profilInput" placeholder="">
+            <input type="text" id="profilInput">
             <button class="btn-sv" onclick="saveProfil()">✓ OK</button>
         </div>
 
-        <div class="mood-bar">
-            <span>Humeur :</span>
-            <button class="mood-btn active" id="mb-stable" onclick="setMood('stable')">😊 Stable</button>
-            <button class="mood-btn" id="mb-hypo" onclick="setMood('hypo')">📉 Post-hypo</button>
-            <button class="mood-btn" id="mb-hyper" onclick="setMood('hyper')">📈 Post-hyper</button>
-            <button class="mood-btn" id="mb-fete" onclick="setMood('fete')">🎉 Fête</button>
-        </div>
-
         <div class="chat-box" id="chatBox"></div>
-        <div class="sugg-bar" id="suggBar"></div>
 
-        <div class="chat-input-bar">
-            <button class="mic-btn" id="micBtn" onclick="toggleMic()">🎤</button>
-            <textarea class="chat-ta" id="chatInput" placeholder="Ton gâteau de rêve..." rows="1" oninput="autoResize(this)"></textarea>
-            <button class="send-btn" id="sendBtn" onclick="sendMsg()" disabled>➤</button>
+        <div class="chat-input-wrapper">
+            <div class="sugg-bar">
+                <button class="sugg-chip" onclick="useSugg(this)">Cookies IG bas 🍪</button>
+                <button class="sugg-chip" onclick="useSugg(this)">Gâteau chocolat 🍫</button>
+                <button class="sugg-chip" onclick="useSugg(this)">Dessert post-hypo 📉</button>
+            </div>
+            <div class="chat-input-bar">
+                <button class="mic-btn" id="micBtn" onclick="toggleMic()">🎤</button>
+                <textarea class="chat-ta" id="chatInput" placeholder="Ton gâteau de rêve..." rows="1"></textarea>
+                <button class="send-btn" id="sendBtn" onclick="sendMsg()" disabled>➤</button>
+            </div>
         </div>
     </div>
 
     <div class="screen" id="screen-rec">
-        <div class="hero">
-            <span class="hero-emoji" style="font-size:52px">🍓</span>
-            <h1>La Vitrine</h1>
-            <p>IG maîtrisé, plaisir maximisé !</p>
-        </div>
-        <div style="padding:0 16px;max-width:900px;margin:0 auto">
-            <div class="filter-bar">
-                <label style="color:#fff">Max glucides :</label>
-                <input type="range" id="glucFilter" min="5" max="25" value="25" oninput="renderRec()">
-                <span class="gluc-badge gluc-hi" id="glucVal" style="background:transparent">≤ 25g</span>
-            </div>
-            <div class="cat-bar" id="catBar"></div>
-            <div class="rec-grid" id="recGrid"></div>
-        </div>
+        <div class="hero"><span class="hero-emoji">🍓</span><h1>La Vitrine</h1></div>
+        <div style="padding:0 20px;max-width:600px;margin:0 auto" id="recGrid" class="rec-grid"></div>
     </div>
 
     <div class="screen" id="screen-fav">
-        <div class="hero">
-            <span class="hero-emoji" style="font-size:52px">❤️</span>
-            <h1>Carnet Secret</h1>
-            <p id="favSubtitle" style="color:#fff">Tes recettes sauvegardées</p>
-        </div>
-        <div style="padding:0 16px;max-width:700px;margin:0 auto" id="favList"></div>
+        <div class="hero"><span class="hero-emoji">❤️</span><h1>Carnet Secret</h1></div>
+        <div style="padding:0 20px;max-width:600px;margin:0 auto" id="favList"></div>
     </div>
 
     <nav class="tab-bar">
-        <button class="tab-item active" id="tab-calc" onclick="goTab('calc')"><span class="tab-icon">🧮</span><span class="tab-label">Calcul</span></button>
-        <button class="tab-item tab-ia" id="tab-ia" onclick="goTab('ia')"><span class="tab-icon">✨</span><span class="tab-label">Chef IA</span></button>
-        <button class="tab-item" id="tab-rec" onclick="goTab('rec')"><span class="tab-icon">🍓</span><span class="tab-label">Recettes</span></button>
-        <button class="tab-item" id="tab-fav" onclick="goTab('fav')"><span class="tab-icon">❤️</span><span class="tab-label" id="favBadge">Favoris</span></button>
+        <button class="tab-item active" onclick="goTab('calc')"><span class="tab-icon">🧮</span><span class="tab-label">Calcul</span></button>
+        <button class="tab-item tab-ia" onclick="goTab('ia')"><span class="tab-icon">✨</span><span class="tab-label">Chef IA</span></button>
+        <button class="tab-item" onclick="goTab('rec')"><span class="tab-icon">🍓</span><span class="tab-label">Vitrine</span></button>
+        <button class="tab-item" onclick="goTab('fav')"><span class="tab-icon">❤️</span><span class="tab-label" id="favBadge">Favoris</span></button>
     </nav>
 
     <script>
-        // ── NAVIGATION ───────────────────────────────────────────────
-        const SCREENS = {calc:'screen-calc', ia:'screen-ia', rec:'screen-rec', fav:'screen-fav'};
-        function goTab(tab) {
-            Object.keys(SCREENS).forEach(k => {
-                document.getElementById(SCREENS[k]).classList.toggle('active', k===tab);
-                document.getElementById('tab-'+k).classList.toggle('active', k===tab);
-            });
-            if(tab==='rec') renderRec();
-            if(tab==='fav') renderFavs();
-            window.scrollTo(0,0);
+        // --- 1. LE FIX ULTIME JAVASCRIPT POUR SAFARI IOS ---
+        if (window.visualViewport) {
+            const resizeHandler = () => {
+                document.body.style.height = window.visualViewport.height + 'px';
+                const chatBox = document.getElementById('chatBox');
+                if (chatBox && document.body.classList.contains('keyboard-open')) {
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+                window.scrollTo(0,0);
+            };
+            window.visualViewport.addEventListener('resize', resizeHandler);
+            resizeHandler();
         }
 
-        // ── IOS AUDIO UNLOCK (Hack Safari) ──────────────────────────
+        // --- 2. NAVIGATION ---
+        const SCREENS = ['calc', 'ia', 'rec', 'fav'];
+        function goTab(tab) {
+            SCREENS.forEach(k => document.getElementById('screen-'+k).classList.toggle('active', k===tab));
+            document.querySelectorAll('.tab-item').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            if(tab==='rec') renderRec();
+            if(tab==='fav') renderFavs();
+        }
+
+        // --- 3. GESTION DU CLAVIER IOS ---
+        const chatInput = document.getElementById('chatInput');
+        chatInput.addEventListener('focus', () => { document.body.classList.add('keyboard-open'); });
+        chatInput.addEventListener('blur', () => { document.body.classList.remove('keyboard-open'); });
+        chatInput.addEventListener('input', function() {
+            this.style.height = '44px';
+            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+            document.getElementById('sendBtn').disabled = this.value.trim() === '';
+        });
+
+        // --- 4. DEBLOCAGE AUDIO IOS ---
         let audioUnlocked = false;
         document.body.addEventListener('touchstart', function() {
             if(!audioUnlocked) {
-                try {
-                    let msg = new SpeechSynthesisUtterance('');
-                    window.speechSynthesis.speak(msg);
-                    const s = new (window.AudioContext || window.webkitAudioContext)();
-                    s.resume();
-                    audioUnlocked = true;
-                } catch(e){}
+                try { window.speechSynthesis.speak(new SpeechSynthesisUtterance('')); audioUnlocked = true; } catch(e){}
             }
         }, {once:true});
 
-        // ── CALCULATEUR ───────────────────────────────────────────────
-        function doCalc() {
-            const total = parseFloat(document.getElementById('totalG').value);
-            const parts = parseFloat(document.getElementById('nbParts').value);
-            const ratio = parseFloat(document.getElementById('ratioI').value);
-            if(!total || !parts) return document.getElementById('calcResult').classList.remove('show');
-            const gpp = total/parts;
-            document.getElementById('resG').textContent = gpp.toFixed(1)+' g';
-            document.getElementById('resD').textContent = ratio>0 ? (gpp/ratio).toFixed(1)+' U' : '—';
-            document.getElementById('calcResult').classList.add('show');
-        }
-
-        // ── PROFIL ET CLÉ API ─────────────────────────────────────────
+        // --- 5. PROFIL & API KEY ---
         let profil = JSON.parse(localStorage.getItem('ac_profil')||'{}');
-        const profilMeta = { apikey:'Clé API Mistral', prenom:'Prénom', age:'Âge', poids:'Poids (kg)', ratio:'Ratio (g/U)', allergies:'Allergies' };
         let editingField = null;
 
         function renderProfil() {
-            Object.keys(profilMeta).forEach(k => {
-                const el = document.getElementById('pv-'+k);
-                if(profil[k]) { 
-                    el.textContent = k === 'apikey' ? '••••••••' : profil[k]; 
-                    el.classList.remove('empty'); 
-                } else { 
-                    el.textContent = k === 'apikey' ? '🗝️ Ajouter' : '—'; 
-                    el.classList.add('empty'); 
-                }
-            });
+            document.getElementById('pv-apikey').textContent = profil.apikey ? '••••••••' : '🗝️ Ajouter';
+            document.getElementById('pv-prenom').textContent = profil.prenom || '—';
+            document.getElementById('pv-age').textContent = profil.age || '—';
+            document.getElementById('pv-allergies').textContent = profil.allergies || '—';
         }
         
         function editField(field) {
             editingField = field;
             document.getElementById('profilEditRow').classList.add('show');
-            
-            const inputEl = document.getElementById('profilInput');
-            inputEl.type = field === 'apikey' ? 'password' : 'text'; // Cache la clé quand on la tape
-            inputEl.value = profil[field]||'';
-            inputEl.placeholder = profilMeta[field];
-            inputEl.focus();
+            const inp = document.getElementById('profilInput');
+            inp.type = field === 'apikey' ? 'password' : 'text';
+            inp.value = profil[field]||'';
+            inp.placeholder = "Saisir " + field;
+            inp.focus();
         }
         
         function saveProfil() {
@@ -336,133 +276,98 @@
             document.getElementById('profilEditRow').classList.remove('show');
         }
 
-        // ── MISTRAL AI CHAT ───────────────────────────────────────────
-        let chatHistory = [];
-        let isBusy = false;
-        let currentMood = 'stable';
-
-        function setMood(m) { 
-            currentMood = m; 
-            document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('active'));
-            document.getElementById('mb-'+m).classList.add('active');
-            renderSuggs();
+        // --- 6. CALCULATEUR ---
+        function doCalc() {
+            const total = parseFloat(document.getElementById('totalG').value);
+            const parts = parseFloat(document.getElementById('nbParts').value);
+            const ratio = parseFloat(document.getElementById('ratioI').value);
+            if(!total || !parts) return;
+            document.getElementById('resG').textContent = (total/parts).toFixed(1)+'g';
+            document.getElementById('resD').textContent = ratio>0 ? ((total/parts)/ratio).toFixed(1)+'U' : '—';
+            document.getElementById('calcResult').classList.add('show');
         }
 
-        const SUGGS = {
-            stable:['Cookies IG bas 🍪', 'Gâteau chocolat 🍫'],
-            hypo: ['Dessert post-hypo', 'Muffin léger'],
-            hyper: ['Dessert IG ultra-bas', 'Recette aux amandes'],
-            fete: ['Gâteau anniversaire 🎂', 'Layer cake DT1']
-        };
+        // --- 7. CHAT MISTRAL ---
+        let chatHistory = [];
+        function useSugg(el) { chatInput.value = el.textContent.replace(/[🍪🍫📉🎂]/g,''); chatInput.focus(); document.getElementById('sendBtn').disabled=false; }
 
-        function renderSuggs() { document.getElementById('suggBar').innerHTML = SUGGS[currentMood].map(s=>`<button class="sugg-chip" onclick="useSugg(this)">${s}</button>`).join(''); }
-        function useSugg(el) { document.getElementById('chatInput').value = el.textContent; document.getElementById('sendBtn').disabled=false; sendMsg(); }
-
-        function appendMsg(role, content) {
+        function appendMsg(role, text) {
             const box = document.getElementById('chatBox');
             const isUser = role==='user';
             const mid = 'msg-'+Date.now();
-            let html = content.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
-            
-            let actions = isUser ? '' : `
-                <div class="bubble-actions">
-                    <button class="act-btn act-listen" onclick="ttsSpeak(this,'${mid}')">🔊 Écouter</button>
-                    <button class="act-btn act-save" onclick="saveFav('${mid}')">❤️ Garder</button>
-                </div>`;
-                
+            let html = text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+            let actions = isUser ? '' : `<div class="bubble-actions"><button class="act-btn act-listen" onclick="ttsSpeak(this,'${mid}')">🔊 Lire</button><button class="act-btn act-save" onclick="saveFav('${mid}')">❤️ Garder</button></div>`;
             box.innerHTML += `<div class="msg ${isUser?'user':'agent'}"><div class="msg-av">${isUser?'👤':'🧑‍🍳'}</div><div><div class="bubble" id="${mid}">${html}</div>${actions}</div></div>`;
             box.scrollTop = box.scrollHeight;
         }
 
         async function sendMsg() {
-            const ta = document.getElementById('chatInput');
-            const text = ta.value.trim();
-            if(!text || isBusy) return;
-            
-            // VERIFICATION DE LA CLE API
+            const text = chatInput.value.trim();
+            if(!text) return;
             const apiKey = profil.apikey ? profil.apikey.trim() : '';
-            if(!apiKey) {
-                appendMsg('agent', "⚠️ Oups ! Il me manque ma **Clé API Mistral** pour réfléchir. <br><br>👉 Clique sur le bouton **'Clé API'** tout en haut à gauche pour l'ajouter !");
-                return;
-            }
+            if(!apiKey) return appendMsg('agent', "⚠️ Il me manque la **Clé API Mistral**. Remplis-la dans la barre juste au-dessus !");
 
-            ta.value=''; ta.style.height='44px'; document.getElementById('sendBtn').disabled=true;
-            isBusy=true; appendMsg('user', text);
-            
+            chatInput.value=''; chatInput.style.height='44px'; document.getElementById('sendBtn').disabled=true;
+            appendMsg('user', text);
             chatHistory.push({role:'user', content:text});
-            const sysPrompt = `Tu es ChefGluco, chef pâtissier pour enfants DT1. L'enfant s'appelle ${profil.prenom||'Aylina'}. Humeur: ${currentMood}. Donne une recette IG bas avec estimation des glucides/part. Sois court, joyeux (emojis). Utilise UNIQUEMENT le HTML basique, pas de markdown.`;
+
+            const sysPrompt = `Tu es Chef Mistral, pâtissier pour enfants DT1. Enfant: ${profil.prenom||'Aylina'}. Donne une recette courte IG bas avec estimation des glucides/part. Utilise des balises HTML (<br>, <strong>). Interdiction formelle d'utiliser du Markdown ou des listes avec tirets (-).`;
 
             try {
                 const r = await fetch('https://api.mistral.ai/v1/chat/completions', {
                     method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + apiKey},
                     body:JSON.stringify({ model:'mistral-small-latest', messages:[{role:'system',content:sysPrompt}, ...chatHistory] })
                 });
-                
-                if(r.status === 401) {
-                    appendMsg('agent', "❌ La Clé API que tu as entrée semble invalide. Vérifie-la dans le menu en haut !");
-                    isBusy=false; return;
-                }
-
+                if(r.status === 401) return appendMsg('agent', "❌ Ta clé API semble invalide.");
                 const d = await r.json();
                 const reply = d.choices[0].message.content;
                 chatHistory.push({role:'assistant', content:reply});
                 appendMsg('agent', reply);
-            } catch(e) { appendMsg('agent', '❌ Erreur de connexion au serveur.'); }
-            isBusy=false;
+            } catch(e) { appendMsg('agent', '❌ Erreur serveur.'); }
         }
 
-        function autoResize(el) { el.style.height='44px'; el.style.height=Math.min(el.scrollHeight,110)+'px'; document.getElementById('sendBtn').disabled=el.value===''; }
         function resetChat() { chatHistory=[]; document.getElementById('chatBox').innerHTML=''; appendMsg('agent', "Bonjour ! Que veux-tu cuisiner aujourd'hui ? 🍪"); }
 
-        // ── MICROPHONE (Safari WebKit) ────────────────────────────────
+        // --- 8. MICROPHONE SAFARI ---
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         let recognition, micActive=false;
         if(SpeechRec) {
             recognition = new SpeechRec(); recognition.lang='fr-FR'; recognition.continuous=false;
             recognition.onstart = () => { micActive=true; document.getElementById('micBtn').classList.add('listening'); };
-            recognition.onresult = e => { document.getElementById('chatInput').value = e.results[0][0].transcript; document.getElementById('sendBtn').disabled=false; };
+            recognition.onresult = e => { chatInput.value = e.results[0][0].transcript; document.getElementById('sendBtn').disabled=false; };
             recognition.onend = () => { micActive=false; document.getElementById('micBtn').classList.remove('listening'); };
-            recognition.onerror = e => { micActive=false; document.getElementById('micBtn').classList.remove('listening'); if(e.error==='not-allowed') alert("Safari bloque le micro. Vérifie que le site est en HTTPS sécurisé."); };
+            recognition.onerror = e => { micActive=false; document.getElementById('micBtn').classList.remove('listening'); if(e.error==='not-allowed') alert("Microphone bloqué par Apple."); };
         }
-        function toggleMic() {
-            if(!SpeechRec) return alert("Dictée non supportée sur cet appareil.");
-            micActive ? recognition.stop() : recognition.start();
-        }
+        function toggleMic() { if(!SpeechRec) return alert("Micro non supporté."); micActive ? recognition.stop() : recognition.start(); }
 
-        // ── TEXT TO SPEECH (Anti-coupure iOS) ─────────────────────────
+        // --- 9. TEXT TO SPEECH ---
         function ttsSpeak(btn, id) {
             window.speechSynthesis.cancel();
-            const text = document.getElementById(id).innerText.replace(/[🎂🍪✨💡📊🧑‍🍳❤️]/g,'');
-            const u = new SpeechSynthesisUtterance(text); u.lang='fr-FR'; u.rate=0.95;
+            const textToRead = document.getElementById(id).innerText.replace(/[🎂🍪✨💡📊🧑‍🍳❤️]/g,'');
+            const u = new SpeechSynthesisUtterance(textToRead); 
+            u.lang='fr-FR'; u.rate=0.95;
             if(/iPhone|iPad/i.test(navigator.userAgent)){ const t = setInterval(()=>{ window.speechSynthesis.speaking ? window.speechSynthesis.resume() : clearInterval(t); }, 5000); }
             window.speechSynthesis.speak(u);
         }
 
-        // ── FAVORIS & RECETTES ────────────────────────────────────────
+        // --- 10. FAVORIS ---
         let favs = JSON.parse(localStorage.getItem('ac_favs')||'[]');
-        function saveFav(id) { favs.unshift({ id:Date.now(), text: document.getElementById(id).innerHTML, date: new Date().toLocaleDateString() }); localStorage.setItem('ac_favs', JSON.stringify(favs)); renderFavTabBadge(); alert("❤️ Ajouté !"); }
+        function saveFav(id) { favs.unshift({ id:Date.now(), text: document.getElementById(id).innerHTML, date: new Date().toLocaleDateString() }); localStorage.setItem('ac_favs', JSON.stringify(favs)); renderFavTabBadge(); alert("❤️ Recette sauvegardée !"); }
         function deleteFav(id) { favs = favs.filter(f=>f.id!==id); localStorage.setItem('ac_favs', JSON.stringify(favs)); renderFavs(); renderFavTabBadge(); }
         
         function renderFavs() {
             const list = document.getElementById('favList');
-            if(!favs.length) return list.innerHTML = '<p style="color:#fff;text-align:center">Carnet vide.</p>';
-            list.innerHTML = favs.map(f => `<div class="fav-card"><div class="fav-body"><div style="font-size:12px;color:gray">${f.date}</div><div class="fav-preview open">${f.text}</div><button class="fav-delete" onclick="deleteFav(${f.id})">Supprimer</button></div></div>`).join('');
+            if(!favs.length) return list.innerHTML = '<div class="card" style="text-align:center;color:var(--muted)">Ton carnet secret est vide.</div>';
+            list.innerHTML = favs.map(f => `<div class="card"><div style="font-size:12px;color:var(--muted);margin-bottom:10px">${f.date}</div><div style="font-size:14px;line-height:1.5">${f.text}</div><button onclick="deleteFav(${f.id})" style="margin-top:15px;padding:8px;background:rgba(231,76,60,.1);color:#e74c3c;border:1px solid rgba(231,76,60,.3);border-radius:8px;width:100%;font-weight:bold;cursor:pointer">Retirer</button></div>`).join('');
         }
         function renderFavTabBadge() { document.getElementById('favBadge').textContent = favs.length ? `❤️ ${favs.length}` : 'Favoris'; }
 
-        const RECETTES = [
-            {titre:"Cookies", cat:"gouter", g:8, desc:"Beurre cacahuète, chocolat noir 85%."},
-            {titre:"Layer Cake", cat:"fete", g:15, desc:"Fraise mascarpone sans sucre."},
-            {titre:"Nuage Framboise", cat:"fruit", g:9, desc:"Farine de coco, ultra léger."}
-        ];
-        function renderRec() {
-            const max = document.getElementById('glucFilter').value;
-            document.getElementById('glucVal').textContent = `≤ ${max}g`;
-            document.getElementById('recGrid').innerHTML = RECETTES.filter(r=>r.g<=max).map(r=>`<div class="rec-card"><div class="rec-body"><span class="cat-tag">${r.cat}</span><div class="rec-titre">${r.titre}</div><span class="gluc-badge gluc-low">~${r.g}g/part</span><p style="font-size:12px;margin-top:5px">${r.desc}</p></div></div>`).join('');
-        }
+        // --- 11. VITRINE STATIQUE ---
+        const RECETTES = [{titre:"Cookies express", cat:"Gouter", g:8},{titre:"Layer Cake", cat:"Fête", g:15},{titre:"Nuage Framboise", cat:"Fruit", g:9},{titre:"Brownie Avocat", cat:"Chocolat", g:11}];
+        function renderRec() { document.getElementById('recGrid').innerHTML = RECETTES.map(r=>`<div class="rec-card"><span class="cat-tag">${r.cat}</span><div class="rec-titre">${r.titre}</div><span class="gluc-badge">~${r.g}g/part</span></div>`).join(''); }
 
-        // Init
-        renderProfil(); renderSuggs(); renderFavTabBadge(); resetChat(); renderRec();
+        // --- INITIALISATION ---
+        renderProfil(); renderFavTabBadge(); resetChat(); renderRec(); renderFavs();
     </script>
 </body>
 </html>
