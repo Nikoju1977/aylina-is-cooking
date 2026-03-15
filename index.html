@@ -2,593 +2,467 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#07060a">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="mobile-web-app-capable" content="yes">
-    <title>L'Oracle — Tarot Jodorowsky · Mistral AI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <meta name="apple-mobile-web-app-title" content="Aylina Cookies">
+    <meta name="theme-color" content="#0a0a14">
+    <title>Aylina Cookies 🎂</title>
+    
+    <link rel="manifest" id="manifestLink">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        :root{--gold:#c9a84c;--gold-hi:#e8c870;--gold-lo:#6b5520;--gold-glow:rgba(201,168,76,0.18);--ink:#07060a;--ink2:#100e0c;--border:#2c2618;--text:#d6cdc2;--dim:#8a7a65}
-        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-        html{height:100%}
-        body{background:var(--ink);color:var(--text);font-family:'Cormorant Garamond',serif;min-height:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
-        body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.45;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E")}
-        #particles-js{position:fixed;inset:0;z-index:0;pointer-events:none}
-        .page{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding:24px 14px 80px;display:flex;flex-direction:column;align-items:center}
-        header{text-align:center;margin-bottom:30px;width:100%}
-        .header-orn{font-size:.8em;color:var(--gold-lo);letter-spacing:1.2em;margin-bottom:10px;display:block}
-        h1{font-family:'Cinzel Decorative',serif;font-size:clamp(2.2em,6vw,3.6em);color:var(--gold);margin-bottom:8px;text-shadow:0 0 50px rgba(201,168,76,.25),0 2px 0 rgba(0,0,0,.8)}
-        .tagline{font-style:italic;color:var(--dim);font-size:.85em;letter-spacing:.12em}
+        :root {
+            --bg: #0a0a14; --bg2: #10101e; --bg3: #14142a;
+            --card: rgba(255,255,255,.04); --card-h: rgba(255,255,255,.07);
+            --border-p: rgba(255,107,157,.18); --border-c: rgba(0,229,255,.18); --border-v: rgba(167,139,250,.18);
+            --pink: #ff6b9d; --pink-s: #ff9a9e; --pink-g: rgba(255,107,157,.25);
+            --cyan: #00e5ff; --cyan-g: rgba(0,229,255,.2);
+            --purple: #a78bfa; --purple-g: rgba(167,139,250,.2);
+            --green: #6bcb77; --yellow: #ffd93d; --orange: #ffb347;
+            --text: #e8e8f0; --muted: #6b6b88;
+            --r: 16px; --rs: 10px;
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
         
-        /* Bannière CORS */
-        #corsBanner{display:none;background:rgba(180,80,40,.15);border:1px solid #c8661a;border-left:3px solid #c8661a;border-radius:4px;padding:14px 16px;margin-bottom:16px;width:100%;max-width:430px}
-        #corsBanner p{font-size:.78em;line-height:1.6;color:#e8b090;margin-bottom:8px}
-        #corsBanner p:last-child{margin-bottom:0}
-        #corsBanner strong{color:#e8c870}
-        #corsBanner a{color:#c9a84c;text-decoration:underline}
-        #corsBanner .cors-title{font-family:'Cinzel Decorative',serif;font-size:.6em;letter-spacing:.15em;text-transform:uppercase;color:#c8661a;margin-bottom:8px;display:block}
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; height: 100%; }
+        body { background: var(--bg); color: var(--text); font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif; min-height: 100%; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(255,107,157,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,157,.025) 1px, transparent 1px); background-size: 44px 44px; pointer-events: none; z-index: 0; }
+        input, button, select, textarea { font-family: 'DM Sans', sans-serif; -webkit-appearance: none; }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,107,157,.2); border-radius: 4px; }
 
-        #loginScreen{width:100%;max-width:430px;background:rgba(14,12,10,.92);border:1px solid var(--border);border-top:2px solid var(--gold-lo);padding:28px 26px 24px;border-radius:6px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-        .login-title{font-family:'Cinzel Decorative',serif;font-size:.68em;color:var(--gold-lo);letter-spacing:.22em;text-transform:uppercase;text-align:center;margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-        .field{margin-bottom:14px}
-        .field label{display:block;font-size:.62em;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-        .field input,.field select{width:100%;background:rgba(0,0,0,.5);border:1px solid var(--border);border-radius:3px;color:var(--text);font-family:'Cormorant Garamond',serif;font-size:max(16px,1.1em);padding:11px 12px;outline:none;transition:border-color .3s;-webkit-appearance:none;appearance:none}
-        .field input:focus,.field select:focus{border-color:var(--gold-lo)}
-        .field select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%236b5520'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
-        .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-        .api-note{font-size:.68em;color:var(--dim);font-style:italic;text-align:center;margin-top:6px;line-height:1.45}
-        .btn{padding:12px 28px;background:transparent;border:1px solid var(--border);color:var(--dim);font-family:'Cormorant Garamond',serif;font-size:.88em;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:border-color .3s,color .3s,box-shadow .3s;-webkit-appearance:none;appearance:none;touch-action:manipulation}
-        .btn:hover{border-color:var(--gold-lo);color:var(--gold)}
-        .btn:active{opacity:.8;transform:scale(.98)}
-        .btn-primary{border-color:var(--gold-lo);color:var(--gold)}
-        .btn-primary:hover{border-color:var(--gold);box-shadow:0 0 14px var(--gold-glow)}
-        .login-btn{width:100%;padding:15px;margin-top:20px}
-        #appScreen{display:none;width:100%;max-width:860px}
-        .session-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid var(--border);gap:8px}
-        .session-name{font-family:'Cinzel Decorative',serif;font-size:.78em;color:var(--gold);letter-spacing:.1em}
-        .session-spread{font-size:.72em;color:var(--dim);font-style:italic;text-align:right}
-        .board{display:grid;gap:9px;justify-items:center;align-items:start;margin-bottom:26px;perspective:1400px;width:100%}
-        .board.spread-3{grid-template-columns:repeat(3,1fr)}
-        .board.spread-4{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,auto)}
-        .board.spread-4 .slot-0{grid-column:1;grid-row:1}.board.spread-4 .slot-1{grid-column:3;grid-row:1}.board.spread-4 .slot-2{grid-column:2;grid-row:2}.board.spread-4 .slot-3{grid-column:2;grid-row:3}
-        .board.spread-5{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,auto)}
-        .board.spread-5 .slot-0{grid-column:1;grid-row:2}.board.spread-5 .slot-1{grid-column:3;grid-row:2}.board.spread-5 .slot-2{grid-column:2;grid-row:1}.board.spread-5 .slot-3{grid-column:2;grid-row:3}.board.spread-5 .slot-4{grid-column:2;grid-row:2}
-        .board.spread-6{grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,auto)}
-        .board.spread-6 .slot-0{grid-column:2;grid-row:1}.board.spread-6 .slot-1{grid-column:1;grid-row:2}.board.spread-6 .slot-2{grid-column:2;grid-row:2}.board.spread-6 .slot-3{grid-column:3;grid-row:2}.board.spread-6 .slot-4{grid-column:4;grid-row:2}.board.spread-6 .slot-5{grid-column:2;grid-row:3}
-        .card-slot{width:100%;display:flex;justify-content:center;opacity:0;animation:dealIn .4s ease forwards}
-        @keyframes dealIn{from{opacity:0;transform:translateY(-18px) scale(.88)}to{opacity:1;transform:translateY(0) scale(1)}}
-        .card-wrap{width:100%;max-width:118px;aspect-ratio:2/3.35;position:relative;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;user-select:none;-webkit-user-select:none;cursor:pointer;transition:transform .25s ease,filter .25s ease;touch-action:manipulation}
-        @supports not (aspect-ratio:2/3.35){.card-wrap::before{content:'';display:block;padding-top:167.5%}}
-        .card-wrap:hover:not(.flipped){transform:translateY(-5px);filter:brightness(1.08)}
-        .card-inner{position:absolute;top:0;left:0;right:0;bottom:0;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;transition:-webkit-transform 1.4s cubic-bezier(.25,.1,.25,1);transition:transform 1.4s cubic-bezier(.25,.1,.25,1);transition:transform 1.4s cubic-bezier(.25,.1,.25,1),-webkit-transform 1.4s cubic-bezier(.25,.1,.25,1)}
-        .card-wrap.flipped .card-inner{-webkit-transform:rotateY(180deg);transform:rotateY(180deg)}
-        .card-face{position:absolute;top:0;left:0;right:0;bottom:0;-webkit-backface-visibility:hidden;backface-visibility:hidden;border-radius:6px;border:1px solid var(--border);overflow:hidden}
-        .face-back{background:var(--ink2);border-color:var(--gold-lo);display:flex;align-items:center;justify-content:center;background-image:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(201,168,76,.03) 8px,rgba(201,168,76,.03) 9px)}
-        .face-front{-webkit-transform:rotateY(180deg);transform:rotateY(180deg);background:var(--ink2);display:flex;flex-direction:column;padding:3px}
-        .card-lbl{font-size:.48em;font-family:'Cinzel Decorative',serif;text-transform:uppercase;color:var(--gold-lo);text-align:center;padding:2px 0 3px;letter-spacing:1px;flex-shrink:0}
-        .card-img{width:100%;flex:1;object-fit:cover;border-radius:2px;display:block;min-height:0}
-        .img-reversed{-webkit-transform:rotate(180deg);transform:rotate(180deg)}
-        .text-blocked{color:#b56c6c;font-style:italic}
-        .jodo-meta{font-size:.38em;color:var(--dim);text-align:center;padding:3px 2px 2px;margin-top:2px;border-top:1px solid rgba(201,168,76,.15);line-height:1.3;flex-shrink:0;letter-spacing:.05em}
-        .jodo-gaze{color:var(--gold-lo);font-style:italic}
-        .card-name{font-size:clamp(.44em,1.6vw,.66em);font-weight:600;text-align:center;padding:2px 2px 1px;color:var(--text);line-height:1.1;flex-shrink:0}
-        .oracle-panel{background:rgba(10,8,6,.93);border:1px solid var(--border);border-left:3px solid var(--gold-lo);border-radius:4px;padding:22px 22px 26px;margin-bottom:26px;display:none;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);width:100%}
-        .oracle-panel.on{display:block;animation:fadeUp .45s ease}
-        @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-        .oracle-header{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border);flex-wrap:wrap}
-        .oracle-icon{font-size:1.1em}.oracle-title{font-family:'Cinzel Decorative',serif;font-size:.68em;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
-        .oracle-badge{margin-left:auto;font-size:.58em;color:var(--dim);font-style:italic;border:1px solid var(--border);border-radius:2px;padding:2px 7px}
-        .oracle-loading{color:var(--dim);font-style:italic;font-size:.9em;display:flex;align-items:center;gap:6px}
-        .dots-anim{display:inline-flex;gap:3px}
-        .dots-anim span{width:4px;height:4px;background:var(--gold-lo);border-radius:50%;animation:dotPulse 1.4s ease-in-out infinite}
-        .dots-anim span:nth-child(2){animation-delay:.2s}.dots-anim span:nth-child(3){animation-delay:.4s}
-        @keyframes dotPulse{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
-        .oracle-body{font-size:1.08em;line-height:1.85;color:#c8bfb4;word-break:break-word;min-height:40px}
-        .oracle-body p{margin-bottom:.85em}.oracle-body p:last-child{margin-bottom:0}
-        .oracle-body strong{color:var(--gold);font-weight:600}.oracle-body em{color:#d4c8b8;font-style:italic}
-        .oracle-body h1,.oracle-body h2,.oracle-body h3{font-family:'Cinzel Decorative',serif;font-size:.78em;color:var(--gold-lo);letter-spacing:.16em;text-transform:uppercase;margin:1.2em 0 .5em}
-        .oracle-body hr{border:none;border-top:1px solid var(--border);margin:1em 0}
-        .oracle-body ul{list-style:none;padding:0}.oracle-body ul li{padding-left:1.2em;margin-bottom:.4em}
-        .oracle-body ul li::before{content:'✦';color:var(--gold-lo);margin-right:.5em;font-size:.7em;vertical-align:middle}
-        .oracle-error{font-size:.82em;color:#cc7777;line-height:1.6}
-        #chatMessages{margin-top:20px;border-top:1px solid var(--border);padding-top:16px;display:none}
-        .msg-user{color:var(--gold-hi);margin-bottom:6px;font-size:.95em}.msg-user::before{content:'✦ '}
-        .msg-oracle{color:#c8bfb4;word-break:break-word;line-height:1.75;margin-bottom:18px;font-size:.95em;padding-left:14px;border-left:2px solid rgba(201,168,76,.15)}
-        .msg-oracle p{margin-bottom:.7em}.msg-oracle p:last-child{margin-bottom:0}
-        .msg-oracle strong{color:var(--gold);font-weight:600}.msg-oracle em{font-style:italic;color:#d4c8b8}
-        .msg-oracle h1,.msg-oracle h2,.msg-oracle h3{font-family:'Cinzel Decorative',serif;font-size:.72em;color:var(--gold-lo);letter-spacing:.14em;text-transform:uppercase;margin:.9em 0 .4em}
-        .msg-oracle hr{border:none;border-top:1px solid var(--border);margin:.8em 0}
-        .msg-oracle ul{list-style:none;padding:0}.msg-oracle ul li{padding-left:1.1em;margin-bottom:.3em}
-        .msg-oracle ul li::before{content:'✦';color:var(--gold-lo);margin-right:.4em;font-size:.7em;vertical-align:middle}
-        #oracleChatInput{display:none;margin-top:20px;border-top:1px solid var(--border);padding-top:16px}
-        .chat-row{display:flex;gap:8px;align-items:center}
-        #btnMicro{background:var(--ink2);border:1px solid var(--border);color:var(--gold-lo);border-radius:50%;width:44px;height:44px;cursor:pointer;font-size:1.2em;transition:color .3s,border-color .3s;flex-shrink:0;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
-        #btnMicro.active{color:var(--gold);border-color:var(--gold)}
-        #chatInput{flex:1;background:rgba(0,0,0,.4);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:3px;font-family:'Cormorant Garamond',serif;font-size:max(16px,1em);outline:none;transition:border-color .3s;min-width:0;-webkit-appearance:none}
-        #chatInput:focus{border-color:var(--gold-lo)}
-        .btn-send{padding:10px 18px;margin:0;flex-shrink:0}
-        #microStatus{font-size:.75em;color:var(--gold);font-style:italic;margin-top:6px;display:none;padding-left:52px}
-        .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding-bottom:30px;width:100%}
-        footer{position:relative;z-index:1;width:100%;text-align:center;padding:18px 14px 32px;border-top:1px solid rgba(44,38,24,.6);margin-top:10px}
-        .footer-inner{display:inline-flex;flex-direction:column;align-items:center;gap:4px}
-        .footer-orn{color:var(--gold-lo);font-size:.7em;letter-spacing:.6em;margin-bottom:4px}
-        .footer-credit{font-family:'Cinzel Decorative',serif;font-size:.6em;color:var(--gold-lo);letter-spacing:.18em;text-transform:uppercase}
-        .footer-name{font-family:'Cormorant Garamond',serif;font-size:.78em;color:var(--dim);font-style:italic;letter-spacing:.08em}
-        .footer-tech{font-size:.6em;color:rgba(138,122,101,.5);letter-spacing:.12em;margin-top:2px}
-        @media(max-width:480px){
-            .board{gap:5px}
-            .board.spread-6{grid-template-columns:repeat(3,1fr)}
-            .board.spread-6 .slot-0{grid-column:2;grid-row:1}.board.spread-6 .slot-1{grid-column:1;grid-row:2}.board.spread-6 .slot-2{grid-column:2;grid-row:2}.board.spread-6 .slot-3{grid-column:3;grid-row:2}.board.spread-6 .slot-4{grid-column:1;grid-row:3}.board.spread-6 .slot-5{grid-column:2;grid-row:3}
-            .oracle-panel{padding:16px 14px 20px}.field-row{grid-template-columns:1fr}.actions{gap:8px}.btn{padding:11px 18px;font-size:.82em}.card-wrap{max-width:none}
-        }
-        @media(max-width:360px){
-            .board.spread-6{grid-template-columns:repeat(2,1fr)}
-            .board.spread-6 .slot-0{grid-column:1;grid-row:1}.board.spread-6 .slot-1{grid-column:2;grid-row:1}.board.spread-6 .slot-2{grid-column:1;grid-row:2}.board.spread-6 .slot-3{grid-column:2;grid-row:2}.board.spread-6 .slot-4{grid-column:1;grid-row:3}.board.spread-6 .slot-5{grid-column:2;grid-row:3}
-        }
-        @supports(padding-bottom:env(safe-area-inset-bottom)){.page{padding-bottom:calc(80px + env(safe-area-inset-bottom))}}
+        .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: rgba(10,10,20,.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-top: 1px solid rgba(255,107,157,.12); display: flex; justify-content: space-around; align-items: center; padding: 10px 0 calc(10px + var(--safe-bottom)); }
+        .tab-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px 18px; border-radius: 12px; cursor: pointer; border: none; background: none; color: var(--muted); transition: color .2s; flex: 1; }
+        .tab-item .tab-icon { font-size: 22px; transition: transform .2s; }
+        .tab-item .tab-label { font-size: .64rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; }
+        .tab-item.active { color: var(--pink); }
+        .tab-item.active .tab-icon { transform: scale(1.15); }
+        .tab-item.tab-ia.active { color: var(--cyan); }
+
+        .screen { display: none; min-height: calc(100vh - 68px); padding-bottom: calc(80px + var(--safe-bottom)); }
+        .screen.active { display: block; }
+        
+        .hero { text-align: center; padding: 36px 20px 24px; position: relative; z-index: 1; }
+        .hero-emoji { font-size: 58px; display: inline-block; filter: drop-shadow(0 0 22px var(--pink-g)); animation: float 3.5s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .hero h1 { font-family: 'Fredoka One', cursive; font-size: clamp(1.8rem, 6vw, 3rem); background: linear-gradient(135deg, var(--pink) 30%, var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-top: 10px; }
+        .hero p { color: var(--muted); font-size: .9rem; margin-top: 6px; }
+        
+        .card { background: var(--card); border: 1px solid var(--border-p); border-radius: var(--r); padding: 22px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        .ig { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+        .ig label { font-size: .7rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+        .ig input { background: rgba(255,255,255,.04); border: 1px solid var(--border-p); color: var(--text); border-radius: var(--rs); padding: 13px 15px; font-size: 16px; width: 100%; transition: border-color .2s, box-shadow .2s; }
+        .ig input:focus { outline: none; border-color: var(--pink); box-shadow: 0 0 0 3px rgba(255,107,157,.1); }
+        
+        .btn { padding: 13px 24px; border-radius: 30px; border: none; font-size: .94rem; font-weight: 700; cursor: pointer; transition: all .2s; display: inline-flex; align-items: center; justify-content: center; }
+        .btn:active { transform: scale(.96); }
+        .btn-p { background: linear-gradient(135deg, var(--pink), var(--pink-s)); color: #fff; box-shadow: 0 4px 20px var(--pink-g); width: 100%; }
+
+        .gluc-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: .72rem; font-weight: 600; }
+        .gluc-low { background: rgba(107,203,119,.1); color: var(--green); border: 1px solid rgba(107,203,119,.3); }
+        .gluc-hi { background: rgba(255,107,157,.1); color: var(--pink); border: 1px solid rgba(255,107,157,.3); }
+
+        #screen-calc { padding-top: 0; }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media(max-width:420px) { .calc-grid { grid-template-columns: 1fr; } }
+        .result-box { margin-top: 20px; padding: 20px 22px; border-radius: var(--rs); background: rgba(255,107,157,.06); border: 1px solid rgba(255,107,157,.2); display: none; }
+        .result-box.show { display: block; animation: fsu .3s ease; }
+        .result-box h3 { font-family: 'Fredoka One', cursive; color: var(--pink); font-size: 1.15rem; margin-bottom: 14px; }
+        .stat { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+        .stat-label { font-size: .84rem; color: var(--muted); }
+        .stat-val { font-family: 'Fredoka One', cursive; font-size: 1.5rem; color: var(--cyan); }
+
+        #screen-ia { display: none; flex-direction: column; height: calc(100vh - 68px); padding: 0; }
+        #screen-ia.active { display: flex; }
+        
+        .agent-header { padding: 13px 18px; background: var(--bg2); border-bottom: 1px solid rgba(0,229,255,.1); display: flex; align-items: center; gap: 12px; flex-shrink: 0; position: relative; z-index: 1; }
+        .agent-av { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, rgba(0,229,255,.15), rgba(167,139,250,.15)); border: 1.5px solid rgba(0,229,255,.3); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .agent-info h3 { font-family: 'Fredoka One', cursive; color: var(--cyan); font-size: 1rem; }
+        .agent-info p { font-size: .72rem; color: var(--muted); }
+        .agent-status { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: .72rem; color: var(--green); }
+        
+        .profil-bar, .mood-bar, .sugg-bar { padding: 10px 16px; display: flex; align-items: center; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; flex-shrink: 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+        .profil-bar::-webkit-scrollbar, .mood-bar::-webkit-scrollbar, .sugg-bar::-webkit-scrollbar { display: none; }
+        
+        .profil-chip { display: flex; flex-direction: column; align-items: center; min-width: 64px; cursor: pointer; padding: 5px 10px; background: rgba(167,139,250,.06); border: 1px solid var(--border-v); border-radius: 10px; flex-shrink: 0; }
+        .pc-label { font-size: .58rem; font-weight: 600; text-transform: uppercase; color: var(--muted); }
+        .pc-val { font-family: 'Fredoka One', cursive; font-size: .9rem; color: var(--purple); white-space: nowrap; }
+        
+        .profil-edit-row { display: none; padding: 8px 16px 10px; background: rgba(167,139,250,.04); border-bottom: 1px solid var(--border-v); gap: 8px; align-items: center; flex-shrink: 0; }
+        .profil-edit-row.show { display: flex; }
+        .profil-edit-row input { flex: 1; background: rgba(255,255,255,.05); border: 1px solid var(--border-v); color: var(--text); border-radius: var(--rs); padding: 10px 13px; font-size: 16px; }
+        .btn-sv { padding: 9px 18px; border-radius: 30px; border: none; background: linear-gradient(135deg, var(--purple), #818cf8); color: #fff; font-size: .85rem; font-weight: 700; cursor: pointer; }
+        
+        .mood-btn { padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.08); background: none; color: var(--muted); font-size: .75rem; white-space: nowrap; flex-shrink: 0; }
+        .mood-btn.active { background: rgba(255,107,157,.1); color: var(--pink); border-color: rgba(255,107,157,.3); }
+        
+        .chat-box { flex: 1; overflow-y: auto; padding: 16px 14px; display: flex; flex-direction: column; gap: 13px; -webkit-overflow-scrolling: touch; }
+        .msg { display: flex; gap: 8px; animation: fsu .3s ease; max-width: 88%; }
+        .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+        .msg.agent { align-self: flex-start; }
+        @keyframes fsu { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .msg-av { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .9rem; flex-shrink: 0; align-self: flex-end; }
+        .msg.agent .msg-av { background: rgba(0,229,255,.1); border: 1px solid var(--border-c); }
+        .msg.user .msg-av { background: rgba(255,107,157,.1); border: 1px solid var(--border-p); }
+        
+        .bubble { padding: 12px 15px; border-radius: 14px; font-size: .875rem; line-height: 1.65; word-break: break-word; }
+        .msg.agent .bubble { background: rgba(0,229,255,.06); border: 1px solid var(--border-c); border-bottom-left-radius: 4px; }
+        .msg.user .bubble { background: rgba(255,107,157,.1); border: 1px solid var(--border-p); border-bottom-right-radius: 4px; }
+        .bubble strong { color: var(--cyan); }
+        .msg.user .bubble strong { color: var(--pink); }
+        
+        .bubble-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
+        .act-btn { padding: 4px 11px; border-radius: 16px; border: none; cursor: pointer; font-size: .72rem; font-weight: 600; }
+        .act-listen { background: rgba(255,107,157,.1); color: var(--pink); border: 1px solid rgba(255,107,157,.25); }
+        .act-save { background: rgba(231,76,60,.1); color: #e74c3c; border: 1px solid rgba(231,76,60,.25); }
+        
+        .sugg-chip { background: rgba(0,229,255,.07); border: 1px solid var(--border-c); color: var(--cyan); padding: 6px 13px; border-radius: 20px; font-size: .75rem; white-space: nowrap; flex-shrink: 0; }
+        
+        .chat-input-bar { padding: 10px 13px; background: var(--bg2); display: flex; gap: 9px; align-items: flex-end; flex-shrink: 0; padding-bottom: calc(10px + var(--safe-bottom)); }
+        .chat-ta { flex: 1; background: rgba(255,255,255,.04); border: 1px solid var(--border-c); color: var(--text); border-radius: 13px; padding: 11px 14px; font-size: 16px; resize: none; min-height: 44px; max-height: 110px; }
+        .chat-ta:focus { outline: none; border-color: var(--cyan); }
+        
+        .mic-btn, .send-btn { width: 44px; height: 44px; border-radius: 50%; border: none; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        .mic-btn { background: var(--orange); color: #fff; }
+        .mic-btn.listening { background: #e74c3c; animation: pulse 1.2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .send-btn { background: linear-gradient(135deg, #007c8a, var(--cyan)); color: #fff; }
+
+        .filter-bar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; margin-bottom: 14px; background: var(--card); border: 1px solid var(--border-p); border-radius: var(--rs); }
+        input[type=range] { flex: 1; accent-color: var(--pink); }
+        .cat-bar { display: flex; gap: 7px; margin-bottom: 18px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .cat-bar::-webkit-scrollbar { display: none; }
+        .cat-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,.08); background: none; color: var(--muted); font-size: .78rem; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+        .cat-btn.active { background: rgba(255,107,157,.12); color: var(--pink); border-color: rgba(255,107,157,.4); }
+        
+        .rec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 13px; }
+        .rec-card, .fav-card { background: var(--card); border: 1px solid var(--border-p); border-radius: var(--r); overflow: hidden; position: relative; }
+        .rec-card::before, .fav-top { content: ''; display: block; height: 3px; background: linear-gradient(90deg, var(--pink), var(--cyan)); }
+        
+        .rec-body, .fav-body { padding: 13px; }
+        .cat-tag { font-size: .62rem; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: 7px; background: rgba(255,107,157,.1); color: var(--pink); }
+        .rec-titre, .fav-titre { font-family: 'Fredoka One', cursive; font-size: .95rem; color: var(--text); margin-bottom: 6px; }
+        
+        .rec-detail, .fav-preview { display: none; font-size: .8rem; color: var(--muted); line-height: 1.55; }
+        .rec-detail.open, .fav-preview.open { display: block; padding: 0 13px 13px; }
+        .fav-preview.open { padding: 0 0 10px 0; }
+        
+        .fav-btn { width: 32px; height: 32px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; background: rgba(255,107,157,.1); color: var(--pink); }
+        .fav-delete { background: rgba(231,76,60,.1); color: #e74c3c; margin-top: 10px; padding: 5px 15px; border-radius: 8px; font-weight: bold; width: 100%;}
     </style>
 </head>
 <body>
-    <div id="particles-js"></div>
-    <div class="page">
-        <header>
-            <span class="header-orn">⊗ ✦ ⊗</span>
-            <h1>L'Oracle</h1>
-            <p class="tagline">Tarot de Marseille · Méthode Jodorowsky · Mistral AI</p>
-        </header>
 
-        <div id="corsBanner">
-            <span class="cors-title">⚠ Fichier local détecté</span>
-            <p>Pour que l'Oracle AI et le microphone fonctionnent, ce fichier doit être ouvert depuis une <strong>URL HTTPS</strong>.</p>
-            <p><strong>Solution :</strong> Héberge ce fichier gratuitement via <a href="https://pages.github.com" target="_blank">GitHub Pages</a>.</p>
-            <p style="font-size:.72em;color:#8a7a65;margin-top:6px">Protocole actuel : <strong id="corsProto" style="color:#e8b090"></strong></p>
+    <div class="screen active" id="screen-calc">
+        <div class="hero">
+            <span class="hero-emoji">🧮</span>
+            <h1>Calculateur</h1>
+            <p>Glucides par part & dose d'insuline</p>
         </div>
-
-        <div id="loginScreen">
-            <div class="login-title">Ouvrir la Consultation</div>
-            <div class="field-row">
-                <div class="field"><label>Prénom *</label><input type="text" id="f-prenom" required autocomplete="off" placeholder="Votre prénom" inputmode="text"></div>
-                <div class="field"><label>Naissance</label><input type="date" id="f-dob"></div>
-            </div>
-            <div class="field"><label>Question / Intention</label><input type="text" id="f-question" autocomplete="off" placeholder="Formule ton intention intérieure..." inputmode="text"></div>
-            <div class="field">
-                <label>Tirage</label>
-                <select id="f-spread">
-                    <option value="3">La Phrase Optique — 3 Cartes · Sujet · Verbe · Complément</option>
-                    <option value="4">La Psychogénéalogie — 4 Cartes · Héritage Familial</option>
-                    <option value="5">La Croix Psychologique — 5 Cartes</option>
-                    <option value="6" selected>L'Hexagramme — 6 Positions · Tirage Complet</option>
-                </select>
-            </div>
-            <div class="field"><label>Clé API Mistral AI</label><input type="password" id="f-apikey" autocomplete="off" placeholder="..."></div>
-            <p class="api-note">Stockée uniquement dans ton navigateur (localStorage). Sans clé, l'oracle IA est désactivé.</p>
-            <button class="btn btn-primary login-btn" id="loginBtn">✦ Ouvrir la Table ✦</button>
-        </div>
-
-        <div id="appScreen">
-            <div class="session-bar">
-                <span class="session-name" id="sessionName">—</span>
-                <span class="session-spread" id="sessionSpread">—</span>
-            </div>
-            <div class="board" id="board"></div>
-            <div class="oracle-panel" id="oraclePanel">
-                <div class="oracle-header">
-                    <span class="oracle-icon">✦</span>
-                    <span class="oracle-title">Voix de l'Oracle</span>
-                    <span class="oracle-badge">mistral-large-latest</span>
+        <div style="padding:0 16px;max-width:600px;margin:0 auto">
+            <div class="card">
+                <div class="calc-grid">
+                    <div class="ig"><label>🍰 Glucides totaux (g)</label><input type="number" id="totalG" placeholder="ex : 120" inputmode="decimal"></div>
+                    <div class="ig"><label>✂️ Nombre de parts</label><input type="number" id="nbParts" placeholder="ex : 8" inputmode="decimal"></div>
+                    <div class="ig"><label>💉 Ratio insuline (g/U)</label><input type="number" id="ratioI" placeholder="ex : 10 (optionnel)" inputmode="decimal"></div>
+                    <div class="ig"><label>🩸 Glycémie actuelle</label><input type="number" id="glycemie" placeholder="mmol/L" inputmode="decimal"></div>
                 </div>
-                <div id="oracleLoading" style="display:none" class="oracle-loading">Les arcanes se révèlent dans le silence <span class="dots-anim"><span></span><span></span><span></span></span></div>
-                <div class="oracle-body" id="oracleBody"></div>
-                <div id="chatMessages"></div>
-                <div id="oracleChatInput">
-                    <div class="chat-row">
-                        <button id="btnMicro" title="Parler à l'Oracle">🎙️</button>
-                        <input type="text" id="chatInput" autocomplete="off" placeholder="Parle ou écris ta question..." inputmode="text">
-                        <button class="btn btn-primary btn-send" id="btnSend">✦</button>
-                    </div>
-                    <div id="microStatus">Écoute en cours...</div>
+                <button class="btn btn-p" style="margin-top:8px" onclick="doCalc()">Calculer ma part 🧮</button>
+                <div class="result-box" id="calcResult">
+                    <h3>📊 Résultats</h3>
+                    <div class="stat"><span class="stat-label">Glucides par part</span><span class="stat-val" id="resG">—</span></div>
+                    <div class="stat"><span class="stat-label">Dose estimée</span><span class="stat-val" id="resD">—</span></div>
                 </div>
-            </div>
-            <div class="actions">
-                <button class="btn btn-primary" id="btnReveal" style="display:none">✦ Révéler le Tirage</button>
-                <button class="btn btn-primary" id="btnOracle" style="display:none">✦ Écouter l'Oracle</button>
-                <button class="btn btn-primary" id="btnNouveau">Nouveau Tirage</button>
-                <button class="btn" id="btnQuitter">← Quitter</button>
             </div>
         </div>
     </div>
-    <footer>
-        <div class="footer-inner">
-            <span class="footer-orn">⊗ · ⊗</span>
-            <span class="footer-credit">Créé par</span>
-            <span class="footer-name">Nicolas Julienne</span>
-            <span class="footer-tech">Tarot de Marseille · Méthode Jodorowsky · Mistral AI</span>
+
+    <div class="screen" id="screen-ia">
+        <div class="agent-header">
+            <div class="agent-av">🧑‍🍳</div>
+            <div class="agent-info">
+                <h3>ChefGluco · Mistral</h3>
+                <p>Spécialiste DT1</p>
+            </div>
+            <div class="agent-status">
+                En ligne <button onclick="resetChat()" style="margin-left:10px;background:none;border:1px solid rgba(255,255,255,.1);color:var(--muted);padding:4px 10px;border-radius:20px;font-size:.68rem;">🗑 Reset</button>
+            </div>
         </div>
-    </footer>
+
+        <div class="profil-bar" id="profilBar">
+            <div class="profil-chip" onclick="editField('apikey')" style="border-color: var(--pink)"><span class="pc-label">Clé API</span><span class="pc-val empty" id="pv-apikey">🗝️ Ajouter</span></div>
+            <div class="profil-chip" onclick="editField('prenom')"><span class="pc-label">Prénom</span><span class="pc-val empty" id="pv-prenom">—</span></div>
+            <div class="profil-chip" onclick="editField('age')"><span class="pc-label">Âge</span><span class="pc-val empty" id="pv-age">—</span></div>
+            <div class="profil-chip" onclick="editField('poids')"><span class="pc-label">Poids kg</span><span class="pc-val empty" id="pv-poids">—</span></div>
+            <div class="profil-chip" onclick="editField('ratio')"><span class="pc-label">Ratio g/U</span><span class="pc-val empty" id="pv-ratio">—</span></div>
+            <div class="profil-chip" onclick="editField('allergies')"><span class="pc-label">Allergies</span><span class="pc-val empty" id="pv-allergies">—</span></div>
+        </div>
+        
+        <div class="profil-edit-row" id="profilEditRow">
+            <input type="text" id="profilInput" placeholder="">
+            <button class="btn-sv" onclick="saveProfil()">✓ OK</button>
+        </div>
+
+        <div class="mood-bar">
+            <span>Humeur :</span>
+            <button class="mood-btn active" id="mb-stable" onclick="setMood('stable')">😊 Stable</button>
+            <button class="mood-btn" id="mb-hypo" onclick="setMood('hypo')">📉 Post-hypo</button>
+            <button class="mood-btn" id="mb-hyper" onclick="setMood('hyper')">📈 Post-hyper</button>
+            <button class="mood-btn" id="mb-fete" onclick="setMood('fete')">🎉 Fête</button>
+        </div>
+
+        <div class="chat-box" id="chatBox"></div>
+        <div class="sugg-bar" id="suggBar"></div>
+
+        <div class="chat-input-bar">
+            <button class="mic-btn" id="micBtn" onclick="toggleMic()">🎤</button>
+            <textarea class="chat-ta" id="chatInput" placeholder="Ton gâteau de rêve..." rows="1" oninput="autoResize(this)"></textarea>
+            <button class="send-btn" id="sendBtn" onclick="sendMsg()" disabled>➤</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-rec">
+        <div class="hero">
+            <span class="hero-emoji" style="font-size:52px">🍓</span>
+            <h1>La Vitrine</h1>
+            <p>IG maîtrisé, plaisir maximisé !</p>
+        </div>
+        <div style="padding:0 16px;max-width:900px;margin:0 auto">
+            <div class="filter-bar">
+                <label style="color:#fff">Max glucides :</label>
+                <input type="range" id="glucFilter" min="5" max="25" value="25" oninput="renderRec()">
+                <span class="gluc-badge gluc-hi" id="glucVal" style="background:transparent">≤ 25g</span>
+            </div>
+            <div class="cat-bar" id="catBar"></div>
+            <div class="rec-grid" id="recGrid"></div>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-fav">
+        <div class="hero">
+            <span class="hero-emoji" style="font-size:52px">❤️</span>
+            <h1>Carnet Secret</h1>
+            <p id="favSubtitle" style="color:#fff">Tes recettes sauvegardées</p>
+        </div>
+        <div style="padding:0 16px;max-width:700px;margin:0 auto" id="favList"></div>
+    </div>
+
+    <nav class="tab-bar">
+        <button class="tab-item active" id="tab-calc" onclick="goTab('calc')"><span class="tab-icon">🧮</span><span class="tab-label">Calcul</span></button>
+        <button class="tab-item tab-ia" id="tab-ia" onclick="goTab('ia')"><span class="tab-icon">✨</span><span class="tab-label">Chef IA</span></button>
+        <button class="tab-item" id="tab-rec" onclick="goTab('rec')"><span class="tab-icon">🍓</span><span class="tab-label">Recettes</span></button>
+        <button class="tab-item" id="tab-fav" onclick="goTab('fav')"><span class="tab-icon">❤️</span><span class="tab-label" id="favBadge">Favoris</span></button>
+    </nav>
 
     <script>
-        'use strict';
-        
-        // ===== CONFIG =====
-        const MISTRAL_URL = 'https://api.mistral.ai/v1/chat/completions';
-        const MISTRAL_MODEL = 'mistral-large-latest';
-        window._imgFallback = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='335'%3E%3Crect width='100%25' height='100%25' fill='%231a1510'/%3E%3Ctext x='50%25' y='48%25' fill='%23c9a84c' text-anchor='middle' font-size='28'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E";
-
-        // ===== DONNÉES =====
-        function conver(n){return 'https://commons.wikimedia.org/w/thumb.php?f=Tarot_de_Marseille_Nicolas_Conver_-_'+encodeURIComponent(n)+'.jpg&w=400';}
-        const CBD='https://cbdtarot.com/wp-content/uploads/2013/04/';
-        const MAJEURS=[
-            {id:0,type:'maj',n:'Le Mat',degre:0,regard:'le ciel',url:conver('Le Mat')},
-            {id:1,type:'maj',n:'Le Bateleur',degre:1,regard:'la droite',url:conver('Le Bateleur')},
-            {id:2,type:'maj',n:'La Papesse',degre:2,regard:'la gauche',url:conver('La Papesse')},
-            {id:3,type:'maj',n:"L'Impératrice",degre:3,regard:'la droite',url:conver("L'Impératrice")},
-            {id:4,type:'maj',n:"L'Empereur",degre:4,regard:'la gauche',url:conver("L'Empereur")},
-            {id:5,type:'maj',n:'Le Pape',degre:5,regard:'la droite',url:conver('Le Pape')},
-            {id:6,type:'maj',n:"L'Amoureux",degre:6,regard:'multiples',url:conver("L'Amoureux")},
-            {id:7,type:'maj',n:'Le Chariot',degre:7,regard:'le spectateur',url:conver('Le Chariot')},
-            {id:8,type:'maj',n:'La Justice',degre:8,regard:'le spectateur',url:conver('La Justice')},
-            {id:9,type:'maj',n:"L'Ermite",degre:9,regard:'la gauche',url:conver("L'Ermite")},
-            {id:10,type:'maj',n:'La Roue de Fortune',degre:10,regard:'la gauche',url:conver('La Roue de Fortune')},
-            {id:11,type:'maj',n:'La Force',degre:11,regard:'la droite',url:conver('La Force')},
-            {id:12,type:'maj',n:'Le Pendu',degre:12,regard:'le spectateur',url:conver('Le Pendu')},
-            {id:13,type:'maj',n:"L'Arcane XIII",degre:13,regard:'la droite',url:conver('La Mort')},
-            {id:14,type:'maj',n:'La Tempérance',degre:14,regard:'le spectateur',url:conver('La Tempérance')},
-            {id:15,type:'maj',n:'Le Diable',degre:15,regard:'le spectateur',url:conver('Le Diable')},
-            {id:16,type:'maj',n:'La Maison-Dieu',degre:16,regard:'la terre',url:conver('La Maison-Dieu')},
-            {id:17,type:'maj',n:"L'Étoile",degre:17,regard:'le spectateur',url:conver("L'Étoile")},
-            {id:18,type:'maj',n:'La Lune',degre:18,regard:'le spectateur',url:conver('La Lune')},
-            {id:19,type:'maj',n:'Le Soleil',degre:19,regard:'le spectateur',url:conver('Le Soleil')},
-            {id:20,type:'maj',n:'Le Jugement',degre:20,regard:'le ciel',url:conver('Le Jugement')},
-            {id:21,type:'maj',n:'Le Monde',degre:21,regard:'la gauche',url:conver('Le Monde')}
-        ];
-        const SUITES=[
-            {name:'Épées',color:'#8a90a0',centre:'Intellectuel',pfx:'e'},
-            {name:'Coupes',color:'#2a7cc7',centre:'Émotionnel',pfx:'c'},
-            {name:'Bâtons',color:'#c8661a',centre:'Créatif/Sexuel',pfx:'b'},
-            {name:'Deniers',color:'#c9a84c',centre:'Matériel',pfx:'d'}
-        ];
-        const NUMEROLOGIE={
-            'As':{degre:1,desc:'Totalité en puissance'},'II':{degre:2,desc:'Accumulation · Gestation'},
-            'III':{degre:3,desc:'Explosion créatrice'},'IV':{degre:4,desc:'Stabilité · Fondation'},
-            'V':{degre:5,desc:'Tentation · Pont'},'VI':{degre:6,desc:'Beauté · Plaisir'},
-            'VII':{degre:7,desc:'Action dans le monde'},'VIII':{degre:8,desc:'Perfection · Plénitude'},
-            'IX':{degre:9,desc:'Crise · Transition'},'X':{degre:10,desc:'Fin de cycle'},
-            'Valet':{degre:'Figure',desc:"L'Enfant · Hésitation"},'Cavalier':{degre:'Figure',desc:'Le Messager · Transmutation'},
-            'Dame':{degre:'Figure',desc:'La Mère · Possession'},'Roi':{degre:'Figure',desc:'Le Père · Maîtrise'}
-        };
-        const RANGS=['As','II','III','IV','V','VI','VII','VIII','IX','X','Valet','Cavalier','Dame','Roi'];
-        const RANG_NUM={'As':'01','II':'02','III':'03','IV':'04','V':'05','VI':'06','VII':'07','VIII':'08','IX':'09','X':'10','Valet':'11','Cavalier':'12','Dame':'13','Roi':'14'};
-        
-        let MINEURS=[];
-        let _mid=100;
-        SUITES.forEach(function(s){RANGS.forEach(function(r){MINEURS.push({id:_mid++,type:'min',n:r+' de '+s.name,rang:r,suite:s,degre:NUMEROLOGIE[r].degre,jodo_desc:NUMEROLOGIE[r].desc,url:CBD+s.pfx+RANG_NUM[r]+'.jpg'});});});
-        const FULL_DECK=MAJEURS.concat(MINEURS);
-        const TIRAGES={
-            '3':{label:'La Phrase Optique',pos:["Ce que je suis","L'action en cours","L'évolution"]},
-            '4':{label:'Psychogénéalogie',pos:["L'Héritage du Père","L'Héritage de la Mère","Le Consultant","La Voie de Guérison"]},
-            '5':{label:'La Croix',pos:["Ce qui soutient","Ce qui fait face","L'esprit","La réalité","La Voie Centrale"]},
-            '6':{label:"L'Hexagramme",pos:['Ciel','Passé','Cœur','Proche','Lointain','Terre']}
-        };
-
-        // ===== STATE =====
-        let consultant={}, spreadKey='6', tirage=[], oracleLaunched=false, conversationHistory=[], oracleFullText='';
-
-        // ===== GESTION SÉCURISÉE DU LOCALSTORAGE =====
-        function sauverCle(cle) { try { localStorage.setItem('oracle_apikey', cle); } catch(e) { console.warn("Stockage local désactivé"); } }
-        function recupererCle() { try { return localStorage.getItem('oracle_apikey') || ''; } catch(e) { return ''; } }
-
-        // ===== SPEECH (GÉRÉ POUR IOS SAFARI) =====
-        let speechVoices=[];
-        let audioIOSUnlocked = false; 
-        
-        function initVoices(){if(window.speechSynthesis)speechVoices=window.speechSynthesis.getVoices();}
-        if(window.speechSynthesis)window.speechSynthesis.onvoiceschanged=initVoices;
-        initVoices();
-        
-        function getFrenchVoice(){return speechVoices.find(function(v){return v.lang&&v.lang.toLowerCase().indexOf('fr')===0;})||null;}
-        
-        function debloquerAudioApple(){
-            if(!window.speechSynthesis || audioIOSUnlocked) return;
-            try{
-                const u=new SpeechSynthesisUtterance('');
-                u.volume=0;
-                window.speechSynthesis.speak(u);
-                audioIOSUnlocked = true;
-            }catch(e){}
-        }
-
-        function faireParlerOracle(t){
-            if(!window.speechSynthesis)return;
-            const p=String(t).replace(/#{1,3}\s*/g,'').replace(/\*{1,3}/g,'').replace(/`/g,'').replace(/^[-*_]{3,}$/gm,'').replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').trim();
-            if(!p)return;
-            window.speechSynthesis.cancel();
-            setTimeout(function(){
-                try{
-                    const u=new SpeechSynthesisUtterance(p);
-                    u.lang='fr-FR';u.rate=0.95;u.pitch=0.85;
-                    const v=getFrenchVoice();if(v)u.voice=v;
-                    window.speechSynthesis.speak(u);
-                }catch(e){}
-            },120);
-        }
-
-        // ===== HELPERS =====
-        function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
-        function escA(s){return escH(s);}
-        function sanitizeKey(k){return String(k).replace(/[^\x20-\x7E]/g,'').trim();}
-        function parseSSE(txt){
-            let r='';
-            txt.split('\n').forEach(function(l){
-                if(l.indexOf('data: ')!==0)return;
-                const raw=l.slice(6).trim();
-                if(!raw||raw==='[DONE]')return;
-                try{const d=JSON.parse(raw);const c=d.choices&&d.choices[0]&&d.choices[0].delta&&d.choices[0].delta.content;if(c)r+=c;}catch(e){}
+        // ── NAVIGATION ───────────────────────────────────────────────
+        const SCREENS = {calc:'screen-calc', ia:'screen-ia', rec:'screen-rec', fav:'screen-fav'};
+        function goTab(tab) {
+            Object.keys(SCREENS).forEach(k => {
+                document.getElementById(SCREENS[k]).classList.toggle('active', k===tab);
+                document.getElementById('tab-'+k).classList.toggle('active', k===tab);
             });
-            return r;
+            if(tab==='rec') renderRec();
+            if(tab==='fav') renderFavs();
+            window.scrollTo(0,0);
         }
-        
-        function renderMD(raw){
-            let s=String(raw).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-            s=s.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
-            const lines=s.split('\n');
-            let out=[],inList=false;
-            for(let i=0;i<lines.length;i++){
-                const l=lines[i];
-                if(/^(\s*[-*_]){3,}\s*$/.test(l)){if(inList){out.push('</ul>');inList=false;}out.push('<hr>');continue;}
-                const hm=l.match(/^(#{1,3})\s+(.*)/);
-                if(hm){if(inList){out.push('</ul>');inList=false;}const tag='h'+Math.min(hm[1].length+1,3);out.push('<'+tag+'>'+inl(hm[2])+'</'+tag+'>');continue;}
-                const lm=l.match(/^\s*[-*]\s+(.*)/);
-                if(lm){if(!inList){out.push('<ul>');inList=true;}out.push('<li>'+inl(lm[1])+'</li>');continue;}
-                if(l.trim()===''){if(inList){out.push('</ul>');inList=false;}out.push('</p><p>');continue;}
-                if(inList){out.push('</ul>');inList=false;}
-                out.push(inl(l));
+
+        // ── IOS AUDIO UNLOCK (Hack Safari) ──────────────────────────
+        let audioUnlocked = false;
+        document.body.addEventListener('touchstart', function() {
+            if(!audioUnlocked) {
+                try {
+                    let msg = new SpeechSynthesisUtterance('');
+                    window.speechSynthesis.speak(msg);
+                    const s = new (window.AudioContext || window.webkitAudioContext)();
+                    s.resume();
+                    audioUnlocked = true;
+                } catch(e){}
             }
-            if(inList)out.push('</ul>');
-            let h='<p>'+out.join('\n')+'</p>';
-            h=h.replace(/<p>\s*<\/p>/g,'').replace(/<p>\s*(<h[123]>)/g,'$1').replace(/(<\/h[123]>)\s*<\/p>/g,'$1').replace(/<p>\s*(<hr>)\s*<\/p>/g,'$1').replace(/<p>\s*(<ul>)/g,'$1').replace(/(<\/ul>)\s*<\/p>/g,'$1');
-            return h;
-        }
-        
-        function inl(s){
-            s=s.replace(/\*\*\*(.+?)\*\*\*/g,'<strong><em>$1</em></strong>');
-            s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-            s=s.replace(/\*(.+?)\*/g,'<em>$1</em>');
-            s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
-            return s;
-        }
-        
-        function scrollBot(el){
-            try{el.scrollTop=el.scrollHeight;const r=el.getBoundingClientRect();if(r.bottom>window.innerHeight)window.scrollTo({top:window.scrollY+r.bottom-window.innerHeight+20,behavior:'smooth'});}catch(e){}
+        }, {once:true});
+
+        // ── CALCULATEUR ───────────────────────────────────────────────
+        function doCalc() {
+            const total = parseFloat(document.getElementById('totalG').value);
+            const parts = parseFloat(document.getElementById('nbParts').value);
+            const ratio = parseFloat(document.getElementById('ratioI').value);
+            if(!total || !parts) return document.getElementById('calcResult').classList.remove('show');
+            const gpp = total/parts;
+            document.getElementById('resG').textContent = gpp.toFixed(1)+' g';
+            document.getElementById('resD').textContent = ratio>0 ? (gpp/ratio).toFixed(1)+' U' : '—';
+            document.getElementById('calcResult').classList.add('show');
         }
 
-        // ===== SESSION =====
-        function ouvrirSession(){
-            const prenom=document.getElementById('f-prenom').value.trim();
-            if(!prenom){alert('Le prénom est requis pour consulter.');return;}
-            debloquerAudioApple();
-            consultant.prenom=prenom;
-            consultant.dob=document.getElementById('f-dob').value;
-            consultant.question=document.getElementById('f-question').value.trim();
-            spreadKey=document.getElementById('f-spread').value;
-            
-            const k=sanitizeKey(document.getElementById('f-apikey').value);
-            if(k) sauverCle(k);
-            consultant.apiKey=k || sanitizeKey(recupererCle());
-            
-            try {
-                document.getElementById('loginScreen').style.display='none';
-                document.getElementById('appScreen').style.display='block';
-                document.getElementById('sessionName').textContent=consultant.prenom;
-                document.getElementById('sessionSpread').textContent=TIRAGES[spreadKey].label;
-                genererTirage();
-            } catch(err) {
-                alert('Erreur: '+err.message);
-            }
-        }
-        
-        function retourLogin(){if(window.speechSynthesis)window.speechSynthesis.cancel();document.getElementById('appScreen').style.display='none';document.getElementById('loginScreen').style.display='block';}
-        function nouveauTirage(){if(window.speechSynthesis)window.speechSynthesis.cancel();genererTirage();}
+        // ── PROFIL ET CLÉ API ─────────────────────────────────────────
+        let profil = JSON.parse(localStorage.getItem('ac_profil')||'{}');
+        const profilMeta = { apikey:'Clé API Mistral', prenom:'Prénom', age:'Âge', poids:'Poids (kg)', ratio:'Ratio (g/U)', allergies:'Allergies' };
+        let editingField = null;
 
-        // ===== TIRAGE =====
-        function genererTirage(){
-            oracleLaunched=false;conversationHistory=[];oracleFullText='';
-            const b=document.getElementById('board');b.innerHTML='';b.className='board spread-'+spreadKey;
-            document.getElementById('oraclePanel').classList.remove('on');
-            document.getElementById('oracleBody').textContent='';
-            document.getElementById('chatMessages').innerHTML='';
-            document.getElementById('chatMessages').style.display='none';
-            document.getElementById('oracleChatInput').style.display='none';
-            document.getElementById('btnOracle').style.display='none';
-            document.getElementById('btnReveal').style.display='inline-block';
-            
-            const shuffled=FULL_DECK.slice().sort(function(){return Math.random()-.5;});
-            tirage=shuffled.slice(0,TIRAGES[spreadKey].pos.length).map(function(c){const o={};for(let k in c)o[k]=c[k];o.isReversed=Math.random()<.3;return o;});
-            
-            tirage.forEach(function(carte,i){
-                const slot=document.createElement('div');slot.className='card-slot slot-'+i;slot.style.animationDelay=(i*.09)+'s';
-                const wrap=document.createElement('div');wrap.className='card-wrap';
-                wrap.innerHTML='<div class="card-inner"><div class="card-face face-back"></div><div class="card-face face-front">'+buildFront(carte,TIRAGES[spreadKey].pos[i])+'</div></div>';
-                wrap.addEventListener('click',function(){this.classList.add('flipped');verifierToutRetourne();});
-                slot.appendChild(wrap);b.appendChild(slot);
-            });
-        }
-        
-        function buildFront(c,label){
-            const blocked=c.isReversed?' <span class="text-blocked">(Bloquée)</span>':'';
-            const etat=c.isReversed?'<span class="text-blocked">Énergie intériorisée</span>':'';
-            const meta=c.type==='maj'
-                ?'<div class="jodo-meta">Degré '+c.degre+'<br><span class="jodo-gaze">👁️ '+escH(c.regard)+'</span><br>'+etat+'</div>'
-                :'<div class="jodo-meta"><span style="color:'+escA(c.suite.color)+'">'+escH(c.suite.centre)+'</span><br>Degré '+c.degre+'<br>'+etat+'</div>';
-            return '<div class="card-lbl">'+escA(label)+'</div>'+
-                   '<img src="'+escA(c.url)+'" class="card-img'+(c.isReversed?' img-reversed':'')+'" loading="lazy" alt="'+escA(c.n)+'" onerror="this.onerror=null;this.src=window._imgFallback">'+
-                   '<div class="card-name">'+escH(c.n)+blocked+'</div>'+meta;
-        }
-        
-        function revelerTirage(){
-            const wraps=document.querySelectorAll('.card-wrap:not(.flipped)');
-            document.getElementById('btnReveal').style.display='none';
-            wraps.forEach(function(w,i){
-                setTimeout(function(){w.classList.add('flipped');if(i===wraps.length-1)setTimeout(verifierToutRetourne,600);},i*900);
-            });
-        }
-        
-        function verifierToutRetourne(){
-            if(!oracleLaunched&&Array.from(document.querySelectorAll('.card-wrap')).every(function(w){return w.classList.contains('flipped');}))
-                document.getElementById('btnOracle').style.display='inline-block';
-        }
-
-        // ===== MISTRAL — LECTURE INITIALE (Avec FETCH API pour GitHub Pages) =====
-        async function lancerAnalyseMistral(){
-            if(oracleLaunched)return;oracleLaunched=true;
-            debloquerAudioApple();
-            document.getElementById('btnOracle').style.display='none';
-            document.getElementById('oraclePanel').classList.add('on');
-            document.getElementById('oracleLoading').style.display='flex';
-            document.getElementById('oracleBody').textContent='';
-            oracleFullText='';
-            
-            const apiKey=sanitizeKey(consultant.apiKey||recupererCle());
-            if(!apiKey){document.getElementById('oracleLoading').style.display='none';document.getElementById('oracleBody').textContent='⚠ Clé API Mistral manquante.';return;}
-            
-            const sp=TIRAGES[spreadKey];
-            const desc=tirage.map(function(c,i){
-                const s=c.isReversed?'[INVERSÉE]':'[ENDROIT]';
-                return c.type==='maj'?sp.pos[i]+' → '+c.n+' '+s+' (Degré:'+c.degre+', Regard:'+c.regard+')'
-                                     :sp.pos[i]+' → '+c.n+' '+s+' (Centre '+c.suite.centre+', Degré:'+c.degre+')';
-            }).join('\n');
-            const sys="Tu es un maître tarologue appliquant la méthode Jodorowsky ('La Voie du Tarot'). Tu ne fais jamais de divination. Le Tarot est un miroir psychologique.\nRÈGLES : 1. OPTIQUE : direction des regards entre cartes. 2. NUMÉROLOGIE. 3. RÉSONANCES. 4. PSYCHOGÉNÉALOGIE. 5. CENTRES ÉNERGÉTIQUES. 6. CARTES INVERSÉES = énergie bloquée.\nTon ton est poétique, percutant, bienveillant. Conclus par un acte psychomagique concret.";
-            const dob=consultant.dob?', né(e) le '+consultant.dob:'';
-            const intent=consultant.question||"Aucune intention explicite.";
-            const usr='Tirage ('+sp.label+') :\n'+desc+'\n\nConsultant : '+consultant.prenom+dob+'.\nIntention : "'+intent+'".\nInterprète en tutoyant.';
-            
-            conversationHistory=[{role:'system',content:sys},{role:'user',content:usr}];
-            try{
-                const res=await fetch(MISTRAL_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},body:JSON.stringify({model:MISTRAL_MODEL,stream:true,temperature:0.7,max_tokens:600,messages:conversationHistory})});
-                if(!res.ok)throw new Error('HTTP '+res.status+' — vérifie ta clé API.');
-                
-                document.getElementById('oracleLoading').style.display='none';
-                const el=document.getElementById('oracleBody');
-                
-                if(!res.body){
-                    oracleFullText=parseSSE(await res.text());
-                }else{
-                    const reader=res.body.getReader(),dec=new TextDecoder();
-                    let buf='';
-                    while(true){
-                        const chunk=await reader.read();if(chunk.done)break;
-                        buf+=dec.decode(chunk.value,{stream:true});
-                        const parts=buf.split('\n');buf=parts.pop();
-                        parts.forEach(function(line){
-                            if(line.indexOf('data: ')!==0)return;const raw=line.slice(6).trim();if(!raw||raw==='[DONE]')return;
-                            try{const d=JSON.parse(raw);const delta=d.choices&&d.choices[0]&&d.choices[0].delta&&d.choices[0].delta.content;
-                                if(delta){oracleFullText+=delta;el.textContent=oracleFullText;scrollBot(document.getElementById('oraclePanel'));}
-                            }catch(e2){}
-                        });
-                    }
+        function renderProfil() {
+            Object.keys(profilMeta).forEach(k => {
+                const el = document.getElementById('pv-'+k);
+                if(profil[k]) { 
+                    el.textContent = k === 'apikey' ? '••••••••' : profil[k]; 
+                    el.classList.remove('empty'); 
+                } else { 
+                    el.textContent = k === 'apikey' ? '🗝️ Ajouter' : '—'; 
+                    el.classList.add('empty'); 
                 }
-                el.innerHTML=renderMD(oracleFullText);
-                conversationHistory.push({role:'assistant',content:oracleFullText});
-                document.getElementById('oracleChatInput').style.display='block';
-                faireParlerOracle(oracleFullText);
-            }catch(e){
-                document.getElementById('oracleLoading').style.display='none';
-                const err=document.createElement('span');err.className='oracle-error';err.textContent='⚠ '+e.message;
-                document.getElementById('oracleBody').appendChild(err);
-            }
+            });
         }
-
-        // ===== MISTRAL — CHAT SUIVI (FETCH API) =====
-        async function poserQuestionOracle(){
-            const inp=document.getElementById('chatInput'),q=inp.value.trim();if(!q)return;
-            inp.value='';
-            const msgs=document.getElementById('chatMessages');msgs.style.display='block';
-            const uN=document.createElement('div');uN.className='msg-user';uN.textContent=consultant.prenom+' : '+q;msgs.appendChild(uN);
-            const aN=document.createElement('div');aN.className='msg-oracle';msgs.appendChild(aN);
-            scrollBot(msgs);conversationHistory.push({role:'user',content:q});let rep='';
+        
+        function editField(field) {
+            editingField = field;
+            document.getElementById('profilEditRow').classList.add('show');
             
-            try{
-                const apiKey=sanitizeKey(consultant.apiKey||recupererCle());
-                const res=await fetch(MISTRAL_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},body:JSON.stringify({model:MISTRAL_MODEL,stream:true,temperature:0.7,max_tokens:400,messages:conversationHistory})});
-                if(!res.ok)throw new Error('Erreur '+res.status);
-                if(!res.body){
-                    rep=parseSSE(await res.text());
-                }else{
-                    const reader=res.body.getReader(),dec=new TextDecoder();
-                    let buf='';
-                    while(true){
-                        const chunk=await reader.read();if(chunk.done)break;
-                        buf+=dec.decode(chunk.value,{stream:true});
-                        const parts=buf.split('\n');buf=parts.pop();
-                        parts.forEach(function(line){
-                            if(line.indexOf('data: ')!==0)return;const raw=line.slice(6).trim();if(!raw||raw==='[DONE]')return;
-                            try{const d=JSON.parse(raw);const delta=d.choices&&d.choices[0]&&d.choices[0].delta&&d.choices[0].delta.content;
-                                if(delta){rep+=delta;aN.textContent=rep;scrollBot(msgs);}
-                            }catch(e2){}
-                        });
-                    }
-                }
-                aN.innerHTML=renderMD(rep);conversationHistory.push({role:'assistant',content:rep});faireParlerOracle(rep);
-            }catch(e){aN.className='oracle-error';aN.textContent='⚠ '+e.message;}
+            const inputEl = document.getElementById('profilInput');
+            inputEl.type = field === 'apikey' ? 'password' : 'text'; // Cache la clé quand on la tape
+            inputEl.value = profil[field]||'';
+            inputEl.placeholder = profilMeta[field];
+            inputEl.focus();
+        }
+        
+        function saveProfil() {
+            if(!editingField) return;
+            profil[editingField] = document.getElementById('profilInput').value.trim();
+            localStorage.setItem('ac_profil', JSON.stringify(profil));
+            renderProfil();
+            document.getElementById('profilEditRow').classList.remove('show');
         }
 
-        // ===== MICRO =====
-        function activerMicro(){
-            const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-            const st=document.getElementById('microStatus'),btn=document.getElementById('btnMicro');
-            if(!SR){
-                st.textContent='Micro bloqué sur Safari. Assurez-vous d\'être en HTTPS.';
-                st.style.display='block';
-                setTimeout(function(){st.style.display='none';},4000);
+        // ── MISTRAL AI CHAT ───────────────────────────────────────────
+        let chatHistory = [];
+        let isBusy = false;
+        let currentMood = 'stable';
+
+        function setMood(m) { 
+            currentMood = m; 
+            document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('active'));
+            document.getElementById('mb-'+m).classList.add('active');
+            renderSuggs();
+        }
+
+        const SUGGS = {
+            stable:['Cookies IG bas 🍪', 'Gâteau chocolat 🍫'],
+            hypo: ['Dessert post-hypo', 'Muffin léger'],
+            hyper: ['Dessert IG ultra-bas', 'Recette aux amandes'],
+            fete: ['Gâteau anniversaire 🎂', 'Layer cake DT1']
+        };
+
+        function renderSuggs() { document.getElementById('suggBar').innerHTML = SUGGS[currentMood].map(s=>`<button class="sugg-chip" onclick="useSugg(this)">${s}</button>`).join(''); }
+        function useSugg(el) { document.getElementById('chatInput').value = el.textContent; document.getElementById('sendBtn').disabled=false; sendMsg(); }
+
+        function appendMsg(role, content) {
+            const box = document.getElementById('chatBox');
+            const isUser = role==='user';
+            const mid = 'msg-'+Date.now();
+            let html = content.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+            
+            let actions = isUser ? '' : `
+                <div class="bubble-actions">
+                    <button class="act-btn act-listen" onclick="ttsSpeak(this,'${mid}')">🔊 Écouter</button>
+                    <button class="act-btn act-save" onclick="saveFav('${mid}')">❤️ Garder</button>
+                </div>`;
+                
+            box.innerHTML += `<div class="msg ${isUser?'user':'agent'}"><div class="msg-av">${isUser?'👤':'🧑‍🍳'}</div><div><div class="bubble" id="${mid}">${html}</div>${actions}</div></div>`;
+            box.scrollTop = box.scrollHeight;
+        }
+
+        async function sendMsg() {
+            const ta = document.getElementById('chatInput');
+            const text = ta.value.trim();
+            if(!text || isBusy) return;
+            
+            // VERIFICATION DE LA CLE API
+            const apiKey = profil.apikey ? profil.apikey.trim() : '';
+            if(!apiKey) {
+                appendMsg('agent', "⚠️ Oups ! Il me manque ma **Clé API Mistral** pour réfléchir. <br><br>👉 Clique sur le bouton **'Clé API'** tout en haut à gauche pour l'ajouter !");
                 return;
             }
-            const r=new SR();r.lang='fr-FR';r.interimResults=false;r.maxAlternatives=1;
-            r.onstart=function(){btn.classList.add('active');st.textContent='Écoute...';st.style.display='block';};
-            r.onresult=function(e){if(e.results&&e.results[0]&&e.results[0][0])document.getElementById('chatInput').value=e.results[0][0].transcript;};
-            r.onerror=function(e){
-                st.textContent='Erreur : '+(e.error === 'not-allowed' ? 'Permission refusée' : e.error);
-                st.style.display='block';
-                btn.classList.remove('active');
-            };
-            r.onend=function(){btn.classList.remove('active');setTimeout(function(){st.style.display='none';},2000);};
-            try{r.start();}catch(e){st.textContent='Impossible de démarrer le micro.';st.style.display='block';}
+
+            ta.value=''; ta.style.height='44px'; document.getElementById('sendBtn').disabled=true;
+            isBusy=true; appendMsg('user', text);
+            
+            chatHistory.push({role:'user', content:text});
+            const sysPrompt = `Tu es ChefGluco, chef pâtissier pour enfants DT1. L'enfant s'appelle ${profil.prenom||'Aylina'}. Humeur: ${currentMood}. Donne une recette IG bas avec estimation des glucides/part. Sois court, joyeux (emojis). Utilise UNIQUEMENT le HTML basique, pas de markdown.`;
+
+            try {
+                const r = await fetch('https://api.mistral.ai/v1/chat/completions', {
+                    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + apiKey},
+                    body:JSON.stringify({ model:'mistral-small-latest', messages:[{role:'system',content:sysPrompt}, ...chatHistory] })
+                });
+                
+                if(r.status === 401) {
+                    appendMsg('agent', "❌ La Clé API que tu as entrée semble invalide. Vérifie-la dans le menu en haut !");
+                    isBusy=false; return;
+                }
+
+                const d = await r.json();
+                const reply = d.choices[0].message.content;
+                chatHistory.push({role:'assistant', content:reply});
+                appendMsg('agent', reply);
+            } catch(e) { appendMsg('agent', '❌ Erreur de connexion au serveur.'); }
+            isBusy=false;
         }
 
-        // ── DÉTECTION PROTOCOLE AU CHARGEMENT (CORS BANNER) ──
-        (function(){
-            const proto = window.location.protocol;
-            const banner = document.getElementById('corsBanner');
-            const protoEl = document.getElementById('corsProto');
-            if(proto==='file:' || proto==='content:' || proto==='blob:'){
-                if(banner) banner.style.display='block';
-                if(protoEl) protoEl.textContent = proto + '//';
-            }
-        })();
+        function autoResize(el) { el.style.height='44px'; el.style.height=Math.min(el.scrollHeight,110)+'px'; document.getElementById('sendBtn').disabled=el.value===''; }
+        function resetChat() { chatHistory=[]; document.getElementById('chatBox').innerHTML=''; appendMsg('agent', "Bonjour ! Que veux-tu cuisiner aujourd'hui ? 🍪"); }
 
-        // ===== DÉCLENCHEURS (EVENT LISTENERS) =====
-        document.getElementById('loginBtn').addEventListener('click', ouvrirSession);
-        document.getElementById('btnReveal').addEventListener('click', revelerTirage);
-        document.getElementById('btnOracle').addEventListener('click', lancerAnalyseMistral);
-        document.getElementById('btnNouveau').addEventListener('click', nouveauTirage);
-        document.getElementById('btnQuitter').addEventListener('click', retourLogin);
-        document.getElementById('btnSend').addEventListener('click', poserQuestionOracle);
-        document.getElementById('btnMicro').addEventListener('click', activerMicro);
-        document.getElementById('chatInput').addEventListener('keydown', function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();poserQuestionOracle();}});
+        // ── MICROPHONE (Safari WebKit) ────────────────────────────────
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition, micActive=false;
+        if(SpeechRec) {
+            recognition = new SpeechRec(); recognition.lang='fr-FR'; recognition.continuous=false;
+            recognition.onstart = () => { micActive=true; document.getElementById('micBtn').classList.add('listening'); };
+            recognition.onresult = e => { document.getElementById('chatInput').value = e.results[0][0].transcript; document.getElementById('sendBtn').disabled=false; };
+            recognition.onend = () => { micActive=false; document.getElementById('micBtn').classList.remove('listening'); };
+            recognition.onerror = e => { micActive=false; document.getElementById('micBtn').classList.remove('listening'); if(e.error==='not-allowed') alert("Safari bloque le micro. Vérifie que le site est en HTTPS sécurisé."); };
+        }
+        function toggleMic() {
+            if(!SpeechRec) return alert("Dictée non supportée sur cet appareil.");
+            micActive ? recognition.stop() : recognition.start();
+        }
+
+        // ── TEXT TO SPEECH (Anti-coupure iOS) ─────────────────────────
+        function ttsSpeak(btn, id) {
+            window.speechSynthesis.cancel();
+            const text = document.getElementById(id).innerText.replace(/[🎂🍪✨💡📊🧑‍🍳❤️]/g,'');
+            const u = new SpeechSynthesisUtterance(text); u.lang='fr-FR'; u.rate=0.95;
+            if(/iPhone|iPad/i.test(navigator.userAgent)){ const t = setInterval(()=>{ window.speechSynthesis.speaking ? window.speechSynthesis.resume() : clearInterval(t); }, 5000); }
+            window.speechSynthesis.speak(u);
+        }
+
+        // ── FAVORIS & RECETTES ────────────────────────────────────────
+        let favs = JSON.parse(localStorage.getItem('ac_favs')||'[]');
+        function saveFav(id) { favs.unshift({ id:Date.now(), text: document.getElementById(id).innerHTML, date: new Date().toLocaleDateString() }); localStorage.setItem('ac_favs', JSON.stringify(favs)); renderFavTabBadge(); alert("❤️ Ajouté !"); }
+        function deleteFav(id) { favs = favs.filter(f=>f.id!==id); localStorage.setItem('ac_favs', JSON.stringify(favs)); renderFavs(); renderFavTabBadge(); }
         
-        ['f-prenom','f-question','f-apikey'].forEach(function(id){
-            const el=document.getElementById(id);
-            if(el)el.addEventListener('keydown',function(e){if(e.key==='Enter')ouvrirSession();});
-        });
-
-        // Déblocage de l'Audio Apple dès le premier toucher/clic n'importe où sur la page
-        document.addEventListener('touchstart', debloquerAudioApple, { once: true, passive: true });
-        document.addEventListener('click', debloquerAudioApple, { once: true, passive: true });
-
-        if(window.particlesJS){
-            try{particlesJS('particles-js',{particles:{number:{value:55},color:{value:'#c9a84c'},opacity:{value:.22,random:true},size:{value:1.6},line_linked:{enable:true,distance:130,color:'#c9a84c',opacity:.06},move:{enable:true,speed:.28}}});}catch(e){}
+        function renderFavs() {
+            const list = document.getElementById('favList');
+            if(!favs.length) return list.innerHTML = '<p style="color:#fff;text-align:center">Carnet vide.</p>';
+            list.innerHTML = favs.map(f => `<div class="fav-card"><div class="fav-body"><div style="font-size:12px;color:gray">${f.date}</div><div class="fav-preview open">${f.text}</div><button class="fav-delete" onclick="deleteFav(${f.id})">Supprimer</button></div></div>`).join('');
         }
+        function renderFavTabBadge() { document.getElementById('favBadge').textContent = favs.length ? `❤️ ${favs.length}` : 'Favoris'; }
+
+        const RECETTES = [
+            {titre:"Cookies", cat:"gouter", g:8, desc:"Beurre cacahuète, chocolat noir 85%."},
+            {titre:"Layer Cake", cat:"fete", g:15, desc:"Fraise mascarpone sans sucre."},
+            {titre:"Nuage Framboise", cat:"fruit", g:9, desc:"Farine de coco, ultra léger."}
+        ];
+        function renderRec() {
+            const max = document.getElementById('glucFilter').value;
+            document.getElementById('glucVal').textContent = `≤ ${max}g`;
+            document.getElementById('recGrid').innerHTML = RECETTES.filter(r=>r.g<=max).map(r=>`<div class="rec-card"><div class="rec-body"><span class="cat-tag">${r.cat}</span><div class="rec-titre">${r.titre}</div><span class="gluc-badge gluc-low">~${r.g}g/part</span><p style="font-size:12px;margin-top:5px">${r.desc}</p></div></div>`).join('');
+        }
+
+        // Init
+        renderProfil(); renderSuggs(); renderFavTabBadge(); resetChat(); renderRec();
     </script>
 </body>
 </html>
