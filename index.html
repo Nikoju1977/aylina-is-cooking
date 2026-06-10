@@ -207,7 +207,18 @@
         <button class="tab-item" onclick="goTab('fav')"><span class="tab-icon">❤️</span><span class="tab-label" id="favBadge">Favoris</span></button>
     </nav>
 
-    <script>
+    <script>/* Studio Niko · helpers vague C */
+window.safeStorage = window.safeStorage || (function(){var mem=new Map(),ls=null;try{ls=window.localStorage;var t='__niko__';ls.setItem(t,'1');ls.removeItem(t);}catch(e){ls=null;}
+return{getItem:function(k){try{return ls?ls.getItem(k):(mem.has(k)?mem.get(k):null);}catch(e){return mem.has(k)?mem.get(k):null;}},
+setItem:function(k,v){try{if(ls){ls.setItem(k,String(v));return;}}catch(e){}mem.set(k,String(v));},
+removeItem:function(k){try{if(ls)ls.removeItem(k);}catch(e){}mem.delete(k);},
+clear:function(){try{if(ls)ls.clear();}catch(e){}mem.clear();},
+key:function(i){try{if(ls)return ls.key(i);}catch(e){}var a=Array.from(mem.keys());return i<a.length?a[i]:null;},
+get length(){try{if(ls)return ls.length;}catch(e){}return mem.size;}};})();
+window.nikoFetch = window.nikoFetch || function(url,opts){function xhr(){opts=opts||{};return new Promise(function(res,rej){var x=new XMLHttpRequest();x.open((opts.method||'GET'),url,true);if(opts.headers){Object.keys(opts.headers).forEach(function(h){try{x.setRequestHeader(h,opts.headers[h]);}catch(e){}});}x.onload=function(){res({ok:x.status>=200&&x.status<300,status:x.status,statusText:x.statusText,url:url,text:function(){return Promise.resolve(x.responseText);},json:function(){return Promise.resolve(JSON.parse(x.responseText));},headers:{get:function(n){return x.getResponseHeader(n);}}});};x.onerror=function(){rej(new TypeError('Network request failed'));};x.send(opts.body||null);});}
+if(window.fetch){return window.fetch(url,opts).catch(function(){return xhr();});}return xhr();};
+</script>
+<script>
         // --- 1. LE FIX ULTIME JAVASCRIPT POUR SAFARI IOS ---
         if (window.visualViewport) {
             const resizeHandler = () => {
@@ -251,7 +262,7 @@
         }, {once:true});
 
         // --- 5. PROFIL & API KEY ---
-        let profil = JSON.parse(localStorage.getItem('ac_profil')||'{}');
+        let profil = JSON.parse(safeStorage.getItem('ac_profil')||'{}');
         let editingField = null;
 
         function renderProfil() {
@@ -274,7 +285,7 @@
         function saveProfil() {
             if(!editingField) return;
             profil[editingField] = document.getElementById('profilInput').value.trim();
-            localStorage.setItem('ac_profil', JSON.stringify(profil));
+            safeStorage.setItem('ac_profil', JSON.stringify(profil));
             renderProfil();
             document.getElementById('profilEditRow').classList.remove('show');
         }
@@ -317,7 +328,7 @@
             const sysPrompt = `Tu es Chef Mistral, pâtissier pour enfants DT1. Enfant: ${profil.prenom||'Aylina'}. Donne une recette courte IG bas avec estimation des glucides/part. Utilise des balises HTML (<br>, <strong>). Interdiction formelle d'utiliser du Markdown ou des listes avec tirets (-).`;
 
             try {
-                const r = await fetch('https://api.mistral.ai/v1/chat/completions', {
+                const r = await nikoFetch('https://api.mistral.ai/v1/chat/completions', {
                     method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + apiKey},
                     body:JSON.stringify({ model:'mistral-small-latest', messages:[{role:'system',content:sysPrompt}, ...chatHistory] })
                 });
@@ -354,9 +365,9 @@
         }
 
         // --- 10. FAVORIS ---
-        let favs = JSON.parse(localStorage.getItem('ac_favs')||'[]');
-        function saveFav(id) { favs.unshift({ id:Date.now(), text: document.getElementById(id).innerHTML, date: new Date().toLocaleDateString() }); localStorage.setItem('ac_favs', JSON.stringify(favs)); renderFavTabBadge(); alert("❤️ Recette sauvegardée !"); }
-        function deleteFav(id) { favs = favs.filter(f=>f.id!==id); localStorage.setItem('ac_favs', JSON.stringify(favs)); renderFavs(); renderFavTabBadge(); }
+        let favs = JSON.parse(safeStorage.getItem('ac_favs')||'[]');
+        function saveFav(id) { favs.unshift({ id:Date.now(), text: document.getElementById(id).innerHTML, date: new Date().toLocaleDateString() }); safeStorage.setItem('ac_favs', JSON.stringify(favs)); renderFavTabBadge(); alert("❤️ Recette sauvegardée !"); }
+        function deleteFav(id) { favs = favs.filter(f=>f.id!==id); safeStorage.setItem('ac_favs', JSON.stringify(favs)); renderFavs(); renderFavTabBadge(); }
         
         function renderFavs() {
             const list = document.getElementById('favList');
