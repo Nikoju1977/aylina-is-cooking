@@ -1,4 +1,11 @@
 # 🍳 Aylina Is Cooking
+
+## Ce que fait l'application, en pratique
+
+**Aylina Cookies** est un carnet culinaire interactif orienté desserts : recettes comme les cookies à indice glycémique bas et les gâteaux, **calculateur de portions**, espace « Chef Mistral », vitrine et favoris. L'utilisateur explore des idées de recettes et peut préparer ses préférences depuis le navigateur.
+
+**Statut :** prototype culinaire. Les conseils liés au diabète, à une hypoglycémie, aux glucides ou aux allergies doivent être vérifiés auprès de sources fiables ; le logiciel ne calcule aucune dose de traitement médical validée.
+
 **Studio Niko Design** — Application culinaire IA personnalisée.
 
 ## 🛠 Stack
