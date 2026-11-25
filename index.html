@@ -140,53 +140,26 @@
 <body>
 
     <div class="screen active" id="screen-calc">
-        <div class="hero"><span class="hero-emoji">🧮</span><h1>Calculateur</h1><p>Glucides & Insuline</p></div>
+        <div class="hero"><span class="hero-emoji">🧮</span><h1>Calculateur</h1><p>Glucides par portion</p></div>
         <div style="padding:0 20px;max-width:500px;margin:0 auto">
             <div class="card">
-                <div class="ig"><label>🍰 Glucides totaux du gâteau (g)</label><input type="number" id="totalG" placeholder="ex : 120" inputmode="decimal"></div>
-                <div class="ig"><label>✂️ Nombre de parts</label><input type="number" id="nbParts" placeholder="ex : 8" inputmode="decimal"></div>
-                <div class="ig"><label>💉 Ratio insuline (g/U)</label><input type="number" id="ratioI" placeholder="ex : 10 (optionnel)" inputmode="decimal"></div>
+                <div class="ig"><label for="totalG">🍰 Glucides totaux du gâteau (g)</label><input type="number" id="totalG" min="0" step="any" placeholder="ex : 120" inputmode="decimal"></div>
+                <div class="ig"><label for="nbParts">✂️ Nombre de parts</label><input type="number" id="nbParts" min="1" step="1" placeholder="ex : 8" inputmode="decimal"></div>
+                
                 <button class="btn-p" onclick="doCalc()">Calculer ma part 🧮</button>
-                <div class="result-box" id="calcResult">
+                <p id="calcNotice" role="status" aria-live="polite">Calcul alimentaire uniquement. Vérifiez les quantités et allergènes.</p><div class="result-box" id="calcResult" aria-live="polite">
                     <div class="stat"><span style="color:var(--muted)">Glucides/part</span><span class="stat-val" id="resG">—</span></div>
-                    <div class="stat" style="border:none;margin:0;padding:0"><span style="color:var(--muted)">Dose estimée</span><span class="stat-val" id="resD">—</span></div>
+                    
                 </div>
             </div>
         </div>
     </div>
 
     <div class="screen" id="screen-ia">
-        <div class="agent-header">
-            <div class="agent-av">🧑‍🍳</div>
-            <div class="agent-info"><h3>Chef Mistral</h3><p>Spécialiste DT1</p></div>
-            <button onclick="resetChat()" style="margin-left:auto;background:none;border:1px solid rgba(255,255,255,.1);color:var(--muted);padding:5px 12px;border-radius:15px;font-size:.75rem;cursor:pointer;">🗑 Reset</button>
-        </div>
-
-        <div class="profil-bar" id="profilBar">
-            <div class="profil-chip" onclick="editField('apikey')" style="border-color: var(--pink)"><span class="pc-label">Clé API</span><span class="pc-val" id="pv-apikey" style="color:var(--pink)">🗝️ Ajouter</span></div>
-            <div class="profil-chip" onclick="editField('prenom')"><span class="pc-label">Prénom</span><span class="pc-val" id="pv-prenom">—</span></div>
-            <div class="profil-chip" onclick="editField('age')"><span class="pc-label">Âge</span><span class="pc-val" id="pv-age">—</span></div>
-            <div class="profil-chip" onclick="editField('allergies')"><span class="pc-label">Allergies</span><span class="pc-val" id="pv-allergies">—</span></div>
-        </div>
-        
-        <div class="profil-edit-row" id="profilEditRow">
-            <input type="text" id="profilInput">
-            <button class="btn-sv" onclick="saveProfil()">✓ OK</button>
-        </div>
-
-        <div class="chat-box" id="chatBox"></div>
-
-        <div class="chat-input-wrapper">
-            <div class="sugg-bar">
-                <button class="sugg-chip" onclick="useSugg(this)">Cookies IG bas 🍪</button>
-                <button class="sugg-chip" onclick="useSugg(this)">Gâteau chocolat 🍫</button>
-                <button class="sugg-chip" onclick="useSugg(this)">Dessert post-hypo 📉</button>
-            </div>
-            <div class="chat-input-bar">
-                <button class="mic-btn" id="micBtn" onclick="toggleMic()">🎤</button>
-                <textarea class="chat-ta" id="chatInput" placeholder="Ton gâteau de rêve..." rows="1"></textarea>
-                <button class="send-btn" id="sendBtn" onclick="sendMsg()" disabled>➤</button>
-            </div>
+        <div class="hero"><span class="hero-emoji">🧑‍🍳</span><h1>Chef créatif</h1><p>Idées culinaires locales</p></div>
+        <div style="padding:0 20px;max-width:600px;margin:0 auto">
+            <div class="card"><p>Le chef IA distant est temporairement suspendu pour éviter les conseils thérapeutiques et les transferts de données sensibles. Consultez les idées de la vitrine. Aucun appel IA ou microphone dans cette édition.</p>
+            <button class="btn-p" id="clearOldProfile" type="button">Effacer l’ancien profil et sa clé enregistrée</button><p id="privacyNotice" role="status" aria-live="polite"></p></div>
         </div>
     </div>
 
@@ -196,13 +169,13 @@
     </div>
 
     <div class="screen" id="screen-fav">
-        <div class="hero"><span class="hero-emoji">❤️</span><h1>Carnet Secret</h1></div>
+        <div class="hero"><span class="hero-emoji">❤️</span><h1>Favoris locaux</h1><p>Anciennes recettes conservées comme texte non vérifié.</p></div>
         <div style="padding:0 20px;max-width:600px;margin:0 auto" id="favList"></div>
     </div>
 
     <nav class="tab-bar">
         <button class="tab-item active" onclick="goTab('calc')"><span class="tab-icon">🧮</span><span class="tab-label">Calcul</span></button>
-        <button class="tab-item tab-ia" onclick="goTab('ia')"><span class="tab-icon">✨</span><span class="tab-label">Chef IA</span></button>
+        <button class="tab-item tab-ia" onclick="goTab('ia')"><span class="tab-icon">✨</span><span class="tab-label">Chef</span></button>
         <button class="tab-item" onclick="goTab('rec')"><span class="tab-icon">🍓</span><span class="tab-label">Vitrine</span></button>
         <button class="tab-item" onclick="goTab('fav')"><span class="tab-icon">❤️</span><span class="tab-label" id="favBadge">Favoris</span></button>
     </nav>
@@ -219,169 +192,69 @@ window.nikoFetch = window.nikoFetch || function(url,opts){function xhr(){opts=op
 if(window.fetch){return window.fetch(url,opts).catch(function(){return xhr();});}return xhr();};
 </script>
 <script>
-        // --- 1. LE FIX ULTIME JAVASCRIPT POUR SAFARI IOS ---
-        if (window.visualViewport) {
-            const resizeHandler = () => {
-                document.body.style.height = window.visualViewport.height + 'px';
-                const chatBox = document.getElementById('chatBox');
-                if (chatBox && document.body.classList.contains('keyboard-open')) {
-                    chatBox.scrollTop = chatBox.scrollHeight;
-                }
-                window.scrollTo(0,0);
-            };
-            window.visualViewport.addEventListener('resize', resizeHandler);
-            resizeHandler();
-        }
-
-        // --- 2. NAVIGATION ---
-        const SCREENS = ['calc', 'ia', 'rec', 'fav'];
+        const SCREENS=['calc','ia','rec','fav'];
         function goTab(tab) {
-            SCREENS.forEach(k => document.getElementById('screen-'+k).classList.toggle('active', k===tab));
-            document.querySelectorAll('.tab-item').forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            if(tab==='rec') renderRec();
-            if(tab==='fav') renderFavs();
+            if(!SCREENS.includes(tab))return;
+            SCREENS.forEach(k=>document.getElementById('screen-'+k).classList.toggle('active',k===tab));
+            document.querySelectorAll('.tab-item').forEach((btn,i)=>btn.classList.toggle('active',SCREENS[i]===tab));
+            if(tab==='rec')renderRec();
+            if(tab==='fav')renderFavs();
         }
-
-        // --- 3. GESTION DU CLAVIER IOS ---
-        const chatInput = document.getElementById('chatInput');
-        chatInput.addEventListener('focus', () => { document.body.classList.add('keyboard-open'); });
-        chatInput.addEventListener('blur', () => { document.body.classList.remove('keyboard-open'); });
-        chatInput.addEventListener('input', function() {
-            this.style.height = '44px';
-            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
-            document.getElementById('sendBtn').disabled = this.value.trim() === '';
-        });
-
-        // --- 4. DEBLOCAGE AUDIO IOS ---
-        let audioUnlocked = false;
-        document.body.addEventListener('touchstart', function() {
-            if(!audioUnlocked) {
-                try { window.speechSynthesis.speak(new SpeechSynthesisUtterance('')); audioUnlocked = true; } catch(e){}
-            }
-        }, {once:true});
-
-        // --- 5. PROFIL & API KEY ---
-        let profil = JSON.parse(safeStorage.getItem('ac_profil')||'{}');
-        let editingField = null;
-
-        function renderProfil() {
-            document.getElementById('pv-apikey').textContent = profil.apikey ? '••••••••' : '🗝️ Ajouter';
-            document.getElementById('pv-prenom').textContent = profil.prenom || '—';
-            document.getElementById('pv-age').textContent = profil.age || '—';
-            document.getElementById('pv-allergies').textContent = profil.allergies || '—';
-        }
-        
-        function editField(field) {
-            editingField = field;
-            document.getElementById('profilEditRow').classList.add('show');
-            const inp = document.getElementById('profilInput');
-            inp.type = field === 'apikey' ? 'password' : 'text';
-            inp.value = profil[field]||'';
-            inp.placeholder = "Saisir " + field;
-            inp.focus();
-        }
-        
-        function saveProfil() {
-            if(!editingField) return;
-            profil[editingField] = document.getElementById('profilInput').value.trim();
-            safeStorage.setItem('ac_profil', JSON.stringify(profil));
-            renderProfil();
-            document.getElementById('profilEditRow').classList.remove('show');
-        }
-
-        // --- 6. CALCULATEUR ---
         function doCalc() {
-            const total = parseFloat(document.getElementById('totalG').value);
-            const parts = parseFloat(document.getElementById('nbParts').value);
-            const ratio = parseFloat(document.getElementById('ratioI').value);
-            if(!total || !parts) return;
-            document.getElementById('resG').textContent = (total/parts).toFixed(1)+'g';
-            document.getElementById('resD').textContent = ratio>0 ? ((total/parts)/ratio).toFixed(1)+'U' : '—';
-            document.getElementById('calcResult').classList.add('show');
+            const totalField=document.getElementById('totalG'),partsField=document.getElementById('nbParts');
+            const total=totalField.valueAsNumber,parts=partsField.valueAsNumber;
+            const result=document.getElementById('calcResult'),notice=document.getElementById('calcNotice');
+            result.classList.remove('show');
+            document.getElementById('resG').textContent='—';
+            if(!Number.isFinite(total)||total<0||!Number.isSafeInteger(parts)||parts<1){
+                notice.textContent='Saisissez des glucides totaux positifs ou nuls et un nombre entier de portions supérieur à zéro.';return;
+            }
+            const per=total/parts;
+            if(!Number.isFinite(per)){notice.textContent='Valeurs invalides.';return;}
+            document.getElementById('resG').textContent=per.toFixed(1)+' g';
+            notice.textContent='Calcul alimentaire indicatif ; vérifier les quantités. Aucun calcul de traitement.';
+            result.classList.add('show');
         }
-
-        // --- 7. CHAT MISTRAL ---
-        let chatHistory = [];
-        function useSugg(el) { chatInput.value = el.textContent.replace(/[🍪🍫📉🎂]/g,''); chatInput.focus(); document.getElementById('sendBtn').disabled=false; }
-
-        function appendMsg(role, text) {
-            const box = document.getElementById('chatBox');
-            const isUser = role==='user';
-            const mid = 'msg-'+Date.now();
-            let html = text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
-            let actions = isUser ? '' : `<div class="bubble-actions"><button class="act-btn act-listen" onclick="ttsSpeak(this,'${mid}')">🔊 Lire</button><button class="act-btn act-save" onclick="saveFav('${mid}')">❤️ Garder</button></div>`;
-            box.innerHTML += `<div class="msg ${isUser?'user':'agent'}"><div class="msg-av">${isUser?'👤':'🧑‍🍳'}</div><div><div class="bubble" id="${mid}">${html}</div>${actions}</div></div>`;
-            box.scrollTop = box.scrollHeight;
+        for(const id of ['totalG','nbParts'])document.getElementById(id).addEventListener('input',()=>{
+            document.getElementById('calcResult').classList.remove('show');
+            document.getElementById('resG').textContent='—';
+            document.getElementById('calcNotice').textContent='Calculez à nouveau après modification.';
+        });
+        document.getElementById('clearOldProfile').addEventListener('click',()=>{
+            if(!confirm('Effacer le profil et la clé précédemment enregistrés sur cet appareil ?'))return;
+            try{localStorage.removeItem('ac_profil');safeStorage.removeItem('ac_profil');document.getElementById('privacyNotice').textContent='Suppression locale demandée. Révoquez toute ancienne clé exposée auprès du fournisseur.';}
+            catch(_){document.getElementById('privacyNotice').textContent='Suppression impossible. Vérifiez le stockage du navigateur.';}
+        });
+        let favs=[];
+        try{const data=JSON.parse(safeStorage.getItem('ac_favs')||'[]');if(Array.isArray(data))favs=data.filter(f=>f&&typeof f.text==='string');}catch(_){}
+        function persistFavs(){safeStorage.setItem('ac_favs',JSON.stringify(favs));renderFavTabBadge();}
+        function renderFavTabBadge(){document.getElementById('favBadge').textContent=favs.length?'Favoris ('+favs.length+')':'Favoris';}
+        function renderFavs(){
+            const list=document.getElementById('favList');list.replaceChildren();
+            if(!favs.length){list.textContent='Aucun favori enregistré.';return;}
+            favs.forEach((f,i)=>{
+                const card=document.createElement('div');card.className='card';
+                const date=document.createElement('p');date.textContent=String(f.date||'');
+                const text=document.createElement('p');text.style.whiteSpace='pre-wrap';text.textContent=f.text;
+                const remove=document.createElement('button');remove.type='button';remove.textContent='Retirer';
+                remove.addEventListener('click',()=>{favs.splice(i,1);persistFavs();renderFavs();});
+                card.append(date,text,remove);list.append(card);
+            });
         }
-
-        async function sendMsg() {
-            const text = chatInput.value.trim();
-            if(!text) return;
-            const apiKey = profil.apikey ? profil.apikey.trim() : '';
-            if(!apiKey) return appendMsg('agent', "⚠️ Il me manque la **Clé API Mistral**. Remplis-la dans la barre juste au-dessus !");
-
-            chatInput.value=''; chatInput.style.height='44px'; document.getElementById('sendBtn').disabled=true;
-            appendMsg('user', text);
-            chatHistory.push({role:'user', content:text});
-
-            const sysPrompt = `Tu es Chef Mistral, pâtissier pour enfants DT1. Enfant: ${profil.prenom||'Aylina'}. Donne une recette courte IG bas avec estimation des glucides/part. Utilise des balises HTML (<br>, <strong>). Interdiction formelle d'utiliser du Markdown ou des listes avec tirets (-).`;
-
-            try {
-                const r = await nikoFetch('https://api.mistral.ai/v1/chat/completions', {
-                    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer ' + apiKey},
-                    body:JSON.stringify({ model:'mistral-small-latest', messages:[{role:'system',content:sysPrompt}, ...chatHistory] })
-                });
-                if(r.status === 401) return appendMsg('agent', "❌ Ta clé API semble invalide.");
-                const d = await r.json();
-                const reply = d.choices[0].message.content;
-                chatHistory.push({role:'assistant', content:reply});
-                appendMsg('agent', reply);
-            } catch(e) { appendMsg('agent', '❌ Erreur serveur.'); }
+        const RECETTES=[{titre:'Cookies express',cat:'Goûter'},{titre:'Layer Cake',cat:'Fête'},{titre:'Nuage Framboise',cat:'Fruit'},{titre:'Brownie Avocat',cat:'Chocolat'}];
+        function renderRec(){
+            const grid=document.getElementById('recGrid');grid.replaceChildren();
+            RECETTES.forEach(r=>{
+                const card=document.createElement('div');card.className='rec-card';
+                const label=document.createElement('span');label.className='cat-tag';label.textContent=r.cat;
+                const title=document.createElement('div');title.className='rec-titre';title.textContent=r.titre;
+                const note=document.createElement('p');note.textContent='Idée de dessert — ingrédients, portions et allergènes à vérifier.';
+                const btn=document.createElement('button');btn.type='button';btn.textContent='Garder';
+                btn.addEventListener('click',()=>{favs.unshift({text:r.titre,date:new Date().toLocaleDateString()});persistFavs();btn.textContent='Enregistré';});
+                card.append(label,title,note,btn);grid.append(card);
+            });
         }
-
-        function resetChat() { chatHistory=[]; document.getElementById('chatBox').innerHTML=''; appendMsg('agent', "Bonjour ! Que veux-tu cuisiner aujourd'hui ? 🍪"); }
-
-        // --- 8. MICROPHONE SAFARI ---
-        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-        let recognition, micActive=false;
-        if(SpeechRec) {
-            recognition = new SpeechRec(); recognition.lang='fr-FR'; recognition.continuous=false;
-            recognition.onstart = () => { micActive=true; document.getElementById('micBtn').classList.add('listening'); };
-            recognition.onresult = e => { chatInput.value = e.results[0][0].transcript; document.getElementById('sendBtn').disabled=false; };
-            recognition.onend = () => { micActive=false; document.getElementById('micBtn').classList.remove('listening'); };
-            recognition.onerror = e => { micActive=false; document.getElementById('micBtn').classList.remove('listening'); if(e.error==='not-allowed') alert("Microphone bloqué par Apple."); };
-        }
-        function toggleMic() { if(!SpeechRec) return alert("Micro non supporté."); micActive ? recognition.stop() : recognition.start(); }
-
-        // --- 9. TEXT TO SPEECH ---
-        function ttsSpeak(btn, id) {
-            window.speechSynthesis.cancel();
-            const textToRead = document.getElementById(id).innerText.replace(/[🎂🍪✨💡📊🧑‍🍳❤️]/g,'');
-            const u = new SpeechSynthesisUtterance(textToRead); 
-            u.lang='fr-FR'; u.rate=0.95;
-            if(/iPhone|iPad/i.test(navigator.userAgent)){ const t = setInterval(()=>{ window.speechSynthesis.speaking ? window.speechSynthesis.resume() : clearInterval(t); }, 5000); }
-            window.speechSynthesis.speak(u);
-        }
-
-        // --- 10. FAVORIS ---
-        let favs = JSON.parse(safeStorage.getItem('ac_favs')||'[]');
-        function saveFav(id) { favs.unshift({ id:Date.now(), text: document.getElementById(id).innerHTML, date: new Date().toLocaleDateString() }); safeStorage.setItem('ac_favs', JSON.stringify(favs)); renderFavTabBadge(); alert("❤️ Recette sauvegardée !"); }
-        function deleteFav(id) { favs = favs.filter(f=>f.id!==id); safeStorage.setItem('ac_favs', JSON.stringify(favs)); renderFavs(); renderFavTabBadge(); }
-        
-        function renderFavs() {
-            const list = document.getElementById('favList');
-            if(!favs.length) return list.innerHTML = '<div class="card" style="text-align:center;color:var(--muted)">Ton carnet secret est vide.</div>';
-            list.innerHTML = favs.map(f => `<div class="card"><div style="font-size:12px;color:var(--muted);margin-bottom:10px">${f.date}</div><div style="font-size:14px;line-height:1.5">${f.text}</div><button onclick="deleteFav(${f.id})" style="margin-top:15px;padding:8px;background:rgba(231,76,60,.1);color:#e74c3c;border:1px solid rgba(231,76,60,.3);border-radius:8px;width:100%;font-weight:bold;cursor:pointer">Retirer</button></div>`).join('');
-        }
-        function renderFavTabBadge() { document.getElementById('favBadge').textContent = favs.length ? `❤️ ${favs.length}` : 'Favoris'; }
-
-        // --- 11. VITRINE STATIQUE ---
-        const RECETTES = [{titre:"Cookies express", cat:"Gouter", g:8},{titre:"Layer Cake", cat:"Fête", g:15},{titre:"Nuage Framboise", cat:"Fruit", g:9},{titre:"Brownie Avocat", cat:"Chocolat", g:11}];
-        function renderRec() { document.getElementById('recGrid').innerHTML = RECETTES.map(r=>`<div class="rec-card"><span class="cat-tag">${r.cat}</span><div class="rec-titre">${r.titre}</div><span class="gluc-badge">~${r.g}g/part</span></div>`).join(''); }
-
-        // --- INITIALISATION ---
-        renderProfil(); renderFavTabBadge(); resetChat(); renderRec(); renderFavs();
+        renderFavTabBadge();renderRec();renderFavs();
     </script>
 <!-- STUDIO NIKO — MODE D'EMPLOI INTÉGRÉ. Conserver ce bloc lors d'une mise à jour. -->
 <style id="studio-niko-guide-style">
@@ -433,12 +306,12 @@ if(window.fetch){return window.fetch(url,opts).catch(function(){return xhr();});
 <div class="sn-guide-actions"><button class="sn-guide-dock" type="button" aria-label="Déplacer le bouton d'aide de l'autre côté">Changer de côté</button><button class="sn-guide-close" type="button">Fermer ×</button></div>
     <span class="sn-guide-caption">STUDIO NIKO / GUIDE INTÉGRÉ</span>
     <h2 id="studio-niko-guide-title">aylina-is-cooking</h2>
-    <p>Calculateur de glucides/part et estimation liée à l&#39;insuline — prototype non médical.</p>
+    <p>Calcul alimentaire par portion ; chef IA distant suspendu.</p>
     <h3>Premiers pas</h3>
-    <ol><li>Renseignez la quantité de glucides du gâteau et le nombre de portions.</li><li>Vérifiez les informations saisies avant le calcul par portion.</li><li>N&#39;utilisez jamais une estimation de dose affichée pour décider seul d&#39;une injection d&#39;insuline.</li></ol>
+    <ol><li>Renseignez les glucides totaux et le nombre entier de portions.</li><li>Vérifiez les valeurs avant le calcul.</li><li>Consultez les idées culinaires et favoris locaux.</li></ol>
     <h3>Avant de commencer</h3>
-    <p>Outil expérimental de suivi ou démonstration, non destiné au diagnostic ou aux décisions de traitement.</p>
-    <div class="sn-guide-warning" role="note">Prototype éducatif : ne calculez pas une dose d&#39;insuline réelle à partir de ce résultat.</div>
+    <p>Carnet culinaire non médical ; aucune donnée sensible nécessaire.</p>
+    <div class="sn-guide-warning" role="note">Aucun calcul de traitement. Vérifiez les ingrédients, quantités et allergènes.</div>
     <h3>En cas de problème</h3>
     <p>En cas de page vide ou d&#39;erreur : rechargez une fois, vérifiez la connexion et les permissions ; sur une PWA déjà installée, fermez-la puis rouvrez-la pour actualiser son cache. Consultez le dépôt GitHub si le problème persiste.</p>
     <div class="sn-guide-links">
